@@ -1,6 +1,6 @@
 # DemenagementFront
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.6.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.6 with node v22.
 
 ## Development server
 
@@ -31,7 +31,7 @@ ng generate --help
 To build the project run:
 
 ```bash
-ng build
+ng build --configuration production
 ```
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
