@@ -4,13 +4,29 @@ import {ThemeService} from './services/theme.service';
 import {Meta} from '@angular/platform-browser';
 import {DOCUMENT} from '@angular/common';
 import {SidebarComponent} from './components/ui/sidebar/sidebar.component';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, SidebarComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  animations: [
+    trigger('contentState', [
+      state('open', style({
+        transform: 'translateX(0)',
+        opacity: 1
+      })),
+      state('closed', style({
+        transform: 'translateX(-100%)',
+        opacity: 0
+      })),
+      transition('* <=> *', [
+        animate('0.3s ease-in-out')
+      ])
+    ]),
+  ]
 })
 export class AppComponent{
   isMenuOpen = false;
@@ -116,6 +132,16 @@ export class AppComponent{
       }
     }
     return this.contentClass;
+  }
+
+  getContentState(): string {
+    if (this.isMobile && this.isMenuOpen) {
+      return 'hidden';
+    } else if (!this.isMobile && this.isMenuOpen) {
+      return 'partial';
+    } else {
+      return 'full';
+    }
   }
 
 }

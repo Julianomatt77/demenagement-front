@@ -32,6 +32,22 @@
     @apply font-[family-name:var(--font-title)];
   }
 
+  h1 {
+    @apply text-4xl py-5;
+  }
+
+  h2 {
+    @apply text-3xl py-4;
+  }
+
+  h3 {
+    @apply text-2xl py-3;
+  }
+
+  h4 {
+    @apply text-xl py-2;
+  }
+
   p {
     margin-bottom: 1rem;
   }

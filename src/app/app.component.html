@@ -7,11 +7,17 @@
   <app-sidebar
     [isMenuOpen]="isMenuOpen"
     (updateMenuOpen)="onMenuUpdate($event)"
-    class="p-2.5 w-full md:w-2/12 h-full block bg-background-200 dark:bg-background-200"
+    class="p-2.5 w-full md:w-2/12 h-full block bg-background-200 dark:bg-background-200 "
     [class.hidden]="!isMenuOpen"
-    [class.w-100]="isMobile && isMenuOpen"/>
+    [class.w-100]="isMobile && isMenuOpen"
+    [@contentState]="isMenuOpen ? 'open' : 'closed'"
+  />
 
-  <section id="content" class="p-2.5 {{contentClass}}">
+  <section
+    id="content"
+    class="p-2.5 pt-10  {{contentClass}}"
+    [class.blur-2xl]="isMobile && isMenuOpen"
+  >
     <router-outlet />
   </section>
 

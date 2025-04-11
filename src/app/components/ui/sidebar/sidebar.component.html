@@ -1,6 +1,7 @@
 <nav class="nav-div h-full z-10 relative flex gap-2 top-0 left-0 md:mb-12 md:w-9/12 md:mb-0 md:w-full"
      [class.hidden]="!isMenuOpen"
      [class.is-open]="isMobile && isMenuOpen"
+     [@sidebarState]="isMenuOpen ? 'open' : 'closed'"
 >
   <div class="flex flex-col gap-1 justify-between h-full w-full">
     <div class="mt-20">

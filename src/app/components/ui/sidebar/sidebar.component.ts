@@ -3,6 +3,7 @@ import {ThemeService} from '../../../services/theme.service';
 import {AuthService} from '../../../services/auth.service';
 import {StorageService} from '../../../services/storage.service';
 import {Router, RouterModule} from '@angular/router';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +12,22 @@ import {Router, RouterModule} from '@angular/router';
     RouterModule
   ],
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.css'
+  styleUrl: './sidebar.component.css',
+  animations: [
+    trigger('sidebarState', [
+      state('open', style({
+        transform: 'translateX(0)',
+        opacity: 1
+      })),
+      state('closed', style({
+        transform: 'translateX(-100%)',
+        opacity: 0
+      })),
+      transition('open <=> closed', [
+        animate('0.3s ease-in-out')
+      ])
+    ])
+  ]
 })
 export class SidebarComponent {
   @Input() isMenuOpen = false;
