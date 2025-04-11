@@ -1,13 +1,20 @@
-<main class="main">
-  <h4 class="text-3xl font-bold">
-    Hello world!
-  </h4>
-  <button (click)="toggleTheme()">
-    Toggle Theme
-  </button>
-  <input type="text" placeholder="Type something here..." />
-  <a>Eleatess trabem in festus avenio!</a>
-  <button class="bg-accent dark:bg-accent">Biological, spheroid captains surprisingly eat a quirky, proud queen.</button>
+<main class="main flex w-full h-full">
+  <div class="burger-logo-div fixed top-5 left-5 w-30 z-20 flex gap-6 h-12 justify-center" >
+    <span class="cursor-pointer text-text" (click)="toggleMenu()">{{ isMenuOpen ? "X" : "O"}}</span>
+    <span class="cursor-pointer" (click)="toggleTheme()">Theme</span>
+  </div>
+
+  <app-sidebar
+    [isMenuOpen]="isMenuOpen"
+    (updateMenuOpen)="onMenuUpdate($event)"
+    class="p-2.5 w-full md:w-2/12 h-full block bg-background-200 dark:bg-background-200"
+    [class.hidden]="!isMenuOpen"
+    [class.w-100]="isMobile && isMenuOpen"/>
+
+  <section id="content" class="p-2.5 {{contentClass}}">
+    <router-outlet />
+  </section>
+
 </main>
 
-<router-outlet />
+

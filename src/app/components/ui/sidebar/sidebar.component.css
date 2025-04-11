@@ -1,0 +1,15 @@
+.sidebar-button {
+  margin: 20px 0;
+  width: 90%;
+  cursor: pointer;
+}
+
+@media (width <= 768px) {
+  .nav-div.is-open {
+       display: flex;
+       top: 0;
+       left: 0;
+       width: 100%;
+       padding: 0;
+  }
+}

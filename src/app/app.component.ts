@@ -3,16 +3,20 @@ import { RouterOutlet } from '@angular/router';
 import {ThemeService} from './services/theme.service';
 import {Meta} from '@angular/platform-browser';
 import {DOCUMENT} from '@angular/common';
+import {SidebarComponent} from './components/ui/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, SidebarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent{
-  title = 'Mon déménagement';
+  isMenuOpen = false;
+  isMobile = false;
+  private resizeListener: any;
+  contentClass = 'w-full xs:w-11/12 md:w-10/12';
 
   constructor(private themeService: ThemeService, private metaService: Meta, @Inject(DOCUMENT) private document: Document) {
     this.metaService.addTags([
@@ -65,9 +69,53 @@ export class AppComponent{
 
   ngOnInit() {
     this.document.documentElement.lang = 'fr';
+
+    this.getIsMobile();
+    this.resizeListener = () => {
+      this.getIsMobile();
+    };
+    window.addEventListener('resize', this.resizeListener);
+  }
+
+  toggleMenu(){
+    this.isMenuOpen = !this.isMenuOpen;
+    this.getContentClass();
+  }
+
+  // Ferme la sidebar sur mobile lors du click sur un menu de navigation
+  onMenuUpdate(isOpen: boolean) {
+    this.isMenuOpen = isOpen;
+    this.getContentClass();
   }
 
   toggleTheme(): void {
     this.themeService.toggleTheme();
   }
+
+  getIsMobile(): boolean {
+    this.isMenuOpen = true;
+    const MOBILE_BREAKPOINT = 768;
+    this.isMobile = window.innerWidth < MOBILE_BREAKPOINT;
+    if (this.isMobile) {
+      this.isMenuOpen = false;
+    }
+
+    this.getContentClass();
+
+    return this.isMobile;
+  }
+
+  getContentClass(): string {
+    if (this.isMobile) {
+      this.contentClass = 'fixed w-full';
+    } else {
+      if (this.isMenuOpen) {
+        this.contentClass = 'w-full sm:w-11/12 md:w-10/12';
+      } else {
+        this.contentClass = 'w-full';
+      }
+    }
+    return this.contentClass;
+  }
+
 }
