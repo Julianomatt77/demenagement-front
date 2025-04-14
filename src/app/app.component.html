@@ -1,13 +1,13 @@
 <main class="main flex w-full h-full">
-  <div class="burger-logo-div fixed top-5 left-5 w-30 z-20 flex gap-6 h-12 justify-center" >
-    <span class="cursor-pointer text-text" (click)="toggleMenu()">{{ isMenuOpen ? "X" : "O"}}</span>
-    <span class="cursor-pointer" (click)="toggleTheme()">Theme</span>
+  <div class="burger-logo-div fixed top-5 left-5 w-30 z-20 flex gap-12 h-12 justify-center" >
+    <span class="material-symbols-outlined cursor-pointer text-text" (click)="toggleMenu()">{{ isMenuOpen ? "close" : "menu"}}</span>
+    <span class="material-symbols-outlined cursor-pointer text-text" (click)="toggleTheme()">contrast</span>
   </div>
 
   <app-sidebar
     [isMenuOpen]="isMenuOpen"
     (updateMenuOpen)="onMenuUpdate($event)"
-    class="p-2.5 w-full md:w-2/12 h-full block bg-background-200 dark:bg-background-200 "
+    class="p-2.5 w-full md:w-56 h-full block bg-background-200 dark:bg-background-200 "
     [class.hidden]="!isMenuOpen"
     [class.w-100]="isMobile && isMenuOpen"
     [@contentState]="isMenuOpen ? 'open' : 'closed'"

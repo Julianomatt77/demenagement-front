@@ -1,0 +1,131 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="tems-start">
+  <div class="w-full">
+    <div>
+      <label
+        for="username"
+        class="mb-3 mt-5 block text-xs font-medium">
+        Nom d&#39;utilisateur
+      </label>
+      <div class="relative">
+        <input
+          class="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+          id="username"
+          type="text"
+          formControlName="username"
+          placeholder="Veuillez entrer votre nom d'utilisateur"
+          required
+        />
+        <span class="material-symbols-outlined cursor-pointer-none absolute left-3 top-1/2 -translate-y-1/2 peer-focus:text-gray-900">person_edit</span>
+      </div>
+      @if(!loginForm.get('username')?.valid && submitted){
+        <div class="text-red-500">
+        {{ usernameErrorMessage }}
+        </div>
+      }
+    </div>
+
+    @if(isRegistration){
+      <div class="mt-4">
+        <label
+          for="email"
+          class="mb-3 mt-5 block text-xs font-medium">
+          Adresse email
+        </label>
+        <div class="relative">
+          <input
+            class="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+            id="email"
+            type="emaill"
+            formControlName="email"
+            placeholder="Veuillez entrer votre adresse email"
+            required
+          />
+          <span class="material-symbols-outlined cursor-pointer-none absolute left-3 top-1/2 -translate-y-1/2 peer-focus:text-gray-900">alternate_email</span>
+        </div>
+        @if(!loginForm.get('email')?.valid && submitted){
+        <div class="text-red-500">
+        {{ emailErrorMessage }}
+        </div>
+        }
+      </div>
+    }
+    <div class="mt-4">
+      <label
+        class="mb-3 mt-5 block text-xs font-medium"
+        htmlFor="password"
+      >
+        Mot de passe
+      </label>
+      <div class="relative">
+        <input
+          class="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+          id="password"
+          [type]="passwordFieldType"
+          formControlName="password"
+          placeholder="Votre mot de passe"
+          required
+          minLength={6}
+        />
+        <span class="material-symbols-outlined cursor-pointer-none absolute left-3 top-1/2 -translate-y-1/2 peer-focus:text-gray-900">key</span>
+        <span class="material-symbols-outlined cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 peer-focus:text-gray-900" (click)="togglePasswordVisibility()">{{passwordFieldIcon}}</span>
+      </div>
+
+      @if(!loginForm.get('password')?.valid && submitted){
+        <div class="text-red-500">
+        {{ passwordErrorMessage }}
+        </div>
+      }
+    </div>
+
+    <!--  Confirm password-->
+    @if(isRegistration){
+    <div class="mt-4">
+      <div class="relative">
+        <label class="mb-3 mt-5 block text-xs font-medium"
+        htmlFor="password">Confirmer le mot de passe</label>
+
+        <div class="relative">
+          <input
+            [type]="passwordFieldType"
+            class="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+            id="confirmPassword"
+            placeholder="Confirmer votre mot de passe"
+            formControlName="confirmPassword"
+            >
+
+           <span class="material-symbols-outlined cursor-pointer-none absolute left-3 top-1/2 -translate-y-1/2 peer-focus:text-gray-900">key</span>
+            <span class="material-symbols-outlined cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 peer-focus:text-gray-900" (click)="togglePasswordVisibility()">{{passwordFieldIcon}}</span>
+          </div>
+      </div>
+    </div>
+
+      @if(!loginForm.get('confirmPassword')?.value && submitted){
+        <div class="text-red-500">
+          {{ confirmPasswordMissingErrorMessage }}
+        </div>
+      }
+
+      @if(loginForm.get('confirmPassword')?.value && submitted && loginForm.valid && !isPasswordConfirmed){
+        <div class="text-red-500">
+          {{ confirmPasswordErrorMessage }}
+        </div>
+      }
+    }
+
+  </div>
+
+  <div class="form-submit">
+    <button type="submit" class="w-full mt-8" title="Se connecter">
+      {{ label}} <span class="material-symbols-outlined">keyboard_double_arrow_right</span>
+    </button>
+  </div>
+
+  @if(isLoginFailed){
+    <p class="bg-background-200 text-red-800 dark:text-red-500 mt-8">Erreur lors de la connexion: {{ error }}</p>
+  }
+
+  @if (isLoggedIn){
+    <p class="bg-background-200 text-green-900 dark:text-green-500 mt-8">Vous êtes connecté avec l'email {{ email }}. Vous allez être redirigé vers la page d'accueil.</p>
+  }
+
+  </form>

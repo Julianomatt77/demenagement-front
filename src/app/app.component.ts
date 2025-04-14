@@ -15,12 +15,10 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   animations: [
     trigger('contentState', [
       state('open', style({
-        transform: 'translateX(0)',
-        opacity: 1
+        transform: 'translateX(0)'
       })),
       state('closed', style({
-        transform: 'translateX(-100%)',
-        opacity: 0
+        transform: 'translateX(-100%)'
       })),
       transition('* <=> *', [
         animate('0.3s ease-in-out')

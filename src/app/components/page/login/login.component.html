@@ -1,0 +1,19 @@
+<section class="flex items-center justify-center md:h-screen">
+  <div class="relative mx-auto flex w-full max-w-[400px] flex-col p-4 md:-mt-32 items-start">
+    <div class="w-full">
+      <h1 class="font-bold capitalize"> {{ isRegistration ? 'Créer un compte' : 'Se connecter' }}</h1>
+    </div>
+    <app-login-form class="w-full mb-7"/>
+
+    @if(isRegistration){
+      <div class="w-full">
+        <p>Vous avez déjà un compte ? <a [routerLink]="['/login']" title="se connecter" class="underline">Se connecter</a></p>
+      </div>
+    } @else {
+    <div>
+      <p>Pas encore de compte ? <a [routerLink]="['/register']" title="s'enregistrer" class="underline">Créer un compte</a></p>
+    </div>
+    }
+
+  </div>
+</section>
