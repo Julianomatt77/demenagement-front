@@ -4,14 +4,16 @@
     <span class="material-symbols-outlined cursor-pointer text-text" (click)="toggleTheme()">contrast</span>
   </div>
 
-  <app-sidebar
-    [isMenuOpen]="isMenuOpen"
-    (updateMenuOpen)="onMenuUpdate($event)"
-    class="p-2.5 w-full md:w-56 h-full block bg-background-200 dark:bg-background-200 "
-    [class.hidden]="!isMenuOpen"
-    [class.w-100]="isMobile && isMenuOpen"
-    [@contentState]="isMenuOpen ? 'open' : 'closed'"
-  />
+  <div class="w-full md:w-56 block" [class.hidden]="!isMenuOpen">
+    <app-sidebar
+      [isMenuOpen]="isMenuOpen"
+      (updateMenuOpen)="onMenuUpdate($event)"
+      class="p-2.5 w-full md:w-56 h-full block bg-background-200 dark:bg-background-200 fixed z-10"
+      [class.hidden]="!isMenuOpen"
+      [class.w-100]="isMobile && isMenuOpen"
+      [@contentState]="isMenuOpen ? 'open' : 'closed'"
+    />
+  </div>
 
   <section
     id="content"
