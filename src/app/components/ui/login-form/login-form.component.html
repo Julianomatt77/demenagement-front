@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="tems-start">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="items-start">
   <div class="w-full">
     <div>
       <label
@@ -77,6 +77,14 @@
         <span class="material-symbols-outlined cursor-pointer-none absolute left-3 top-1/2 -translate-y-1/2 peer-focus:text-gray-900">key</span>
         <span class="material-symbols-outlined cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 peer-focus:text-gray-900" (click)="togglePasswordVisibility()">{{passwordFieldIcon}}</span>
       </div>
+
+      @if ( (loginForm.get('password')?.touched ||
+      loginForm.get('password')?.dirty) &&
+      loginForm.get('password')?.hasError('minlength') ) {
+        <div class="text-red-500">
+         le mot de passe doit contenir au moins 6 caractères
+        </div>
+      }
 
       @if(!loginForm.get('password')?.valid && submitted){
         <div class="text-red-500">

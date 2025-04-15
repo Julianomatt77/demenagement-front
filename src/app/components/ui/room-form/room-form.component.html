@@ -1,0 +1,25 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-wrap justify-start items-center gap-2">
+  <div>
+    <div class="relative">
+      <input
+        class="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+        id="name"
+        type="text"
+        formControlName="name"
+        placeholder="Nom de la pièce"
+        required
+      />
+      <span class="material-symbols-outlined cursor-pointer-none absolute left-3 top-1/2 -translate-y-1/2 peer-focus:text-gray-900">person_edit</span>
+    </div>
+    @if(!form.get('name')?.valid && submitted){
+    <div class="text-red-500">
+    Erreur
+    </div>
+    }
+  </div>
+  <div class="form-submit">
+    <button type="submit" class="m-0" title="Enregistrer la pièce">
+      <span class="material-symbols-outlined">save</span>
+    </button>
+  </div>
+</form>
