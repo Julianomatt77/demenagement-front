@@ -1,4 +1,4 @@
-<div class="w-full p-4 shadow sm:p-8" [class.blur-2xl]="showDeleteRoomConfirmModal">
+<div class="w-full p-4 shadow sm:p-8" [class.blur-2xl]="commonService.blurBackground()">
   <div class="relative flex w-full flex-col items-center space-y-2.5 p-4">
     <h1 class="font-bold capitalize">Cartons</h1>
   </div>
@@ -10,6 +10,7 @@
   <div id="rooms_list" class="flex flex-col flex-wrap justify-center items-center gap-5 w-full px-4 pb-4 rounded-2xl" [class.hidden]="!displayRooms">
     <h2 class="pt-0">Pièces enregistrées</h2>
 
+<!--    <app-room />-->
     <div class="flex flex-wrap justify-center items-center gap-4 w-full" >
       @for (room of rooms; track room.id) {
         <div class="relative flex justify-start gap-4 flex-wrap bg-background-200 dark:bg-background-200 w-58 rounded-xl p-4">

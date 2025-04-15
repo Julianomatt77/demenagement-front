@@ -1,20 +1,20 @@
-import {Component, effect, inject} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
+import {RoomFormComponent} from '../room-form/room-form.component';
 import {User} from '../../models/User';
 import {StorageService} from '../../../services/storage.service';
-import {Room} from '../../models/Room';
-import {FormBuilder, FormGroup} from '@angular/forms';
 import {RoomService} from '../../../services/room.service';
-import {RoomFormComponent} from '../../ui/room-form/room-form.component';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {Room} from '../../models/Room';
 import {CommonService} from '../../../services/common.service';
 
 @Component({
-  selector: 'app-cartons',
+  selector: 'app-room',
   standalone: true,
   imports: [RoomFormComponent],
-  templateUrl: './cartons.component.html',
-  styleUrl: './cartons.component.css'
+  templateUrl: './room.component.html',
+  styleUrl: './room.component.css'
 })
-export class CartonsComponent {
+export class RoomComponent {
   user!: User;
   isLoading = true;
   error: string = "";
@@ -28,12 +28,9 @@ export class CartonsComponent {
   selectedRoom: Room | null = null;
   showNewRoomForm: boolean = false;
   roomInEdit: number | null = null;
-  displayRooms: boolean = true;
   roomToDelete: Room | null = null;
   showDeleteRoomConfirmModal = false;
-
-  constructor() {
-  }
+  blurBackground = this.commonService.blurBackground();
 
   ngOnInit() {
     this.user = this.storageService.getUser();
@@ -73,11 +70,13 @@ export class CartonsComponent {
     this.roomToDelete = room;
     this.showDeleteRoomConfirmModal = true;
     this.commonService.toggleBlurBackground()
+    // this.blurBackground = true;
   }
 
   cancelDeleteRoom() {
     this.roomToDelete = null;
     this.commonService.toggleBlurBackground()
+    // this.blurBackground = false;
     this.showDeleteRoomConfirmModal = false;
   }
 
@@ -97,9 +96,5 @@ export class CartonsComponent {
 
   toggleNewRoomForm() {
     this.showNewRoomForm = !this.showNewRoomForm;
-  }
-
-  toggleDisplayRooms(){
-    this.displayRooms = !this.displayRooms;
   }
 }
