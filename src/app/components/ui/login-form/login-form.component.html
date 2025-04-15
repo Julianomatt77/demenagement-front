@@ -35,17 +35,25 @@
           <input
             class="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
             id="email"
-            type="emaill"
+            type="email"
             formControlName="email"
             placeholder="Veuillez entrer votre adresse email"
             required
           />
           <span class="material-symbols-outlined cursor-pointer-none absolute left-3 top-1/2 -translate-y-1/2 peer-focus:text-gray-900">alternate_email</span>
         </div>
-        @if(!loginForm.get('email')?.valid && submitted){
+        @if(((loginForm.get('email')?.touched || loginForm.get('email')?.dirty) &&
+            loginForm.get('email')?.hasError('required') ) || (!loginForm.get('email')?.valid && submitted)){
         <div class="text-red-500">
-        {{ emailErrorMessage }}
+          Un email est obligatoire
         </div>
+        }
+
+        @if ( (loginForm.get('email')?.touched || loginForm.get('email')?.dirty) &&
+                loginForm.get('email')?.hasError('email') ) {
+          <div class="text-red-500">
+            L'email n'est pas valide
+          </div>
         }
       </div>
     }

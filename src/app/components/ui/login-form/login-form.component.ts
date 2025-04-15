@@ -47,12 +47,19 @@ export class LoginFormComponent {
   ngOnInit() {
     this.isRegistration = false;
 
-    this.loginForm = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', this.isRegistration ? Validators.required : ""],
-      password: ['', Validators.required],
-      confirmPassword: ['']
-    })
+    if (this.isRegistration) {
+      this.loginForm = this.fb.group({
+        username: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['']
+      })
+    } else {
+      this.loginForm = this.fb.group({
+        username: ['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(6)]]
+      })
+    }
 
     this.activatedroute.data.subscribe(data => {
       this.isRegistration = data["registration"];
@@ -152,11 +159,7 @@ export class LoginFormComponent {
     const confirmPasswordControl = this.loginForm.get('confirmPassword')?.value;
 
     if (passwordControl && confirmPasswordControl) {
-      if (passwordControl !== confirmPasswordControl) {
-        this.isPasswordConfirmed = false
-      } else {
-        this.isPasswordConfirmed = true
-      }
+      this.isPasswordConfirmed = passwordControl === confirmPasswordControl;
     }
   }
 }
