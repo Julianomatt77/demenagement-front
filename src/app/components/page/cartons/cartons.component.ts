@@ -6,11 +6,12 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {RoomService} from '../../../services/room.service';
 import {RoomFormComponent} from '../../ui/room-form/room-form.component';
 import {CommonService} from '../../../services/common.service';
+import {RoomComponent} from '../../ui/room/room.component';
 
 @Component({
   selector: 'app-cartons',
   standalone: true,
-  imports: [RoomFormComponent],
+  imports: [RoomComponent],
   templateUrl: './cartons.component.html',
   styleUrl: './cartons.component.css'
 })
@@ -26,32 +27,18 @@ export class CartonsComponent {
   rooms: Array<Room> = [];
   formRoomFiltered!: FormGroup;
   selectedRoom: Room | null = null;
-  showNewRoomForm: boolean = false;
-  roomInEdit: number | null = null;
   displayRooms: boolean = true;
   roomToDelete: Room | null = null;
   showDeleteRoomConfirmModal = false;
 
   constructor() {
+    effect(() => {
+      this.rooms = this.commonService.rooms();
+    });
   }
 
   ngOnInit() {
     this.user = this.storageService.getUser();
-
-    this.getAllRooms();
-  }
-
-  getAllRooms() {
-    this.roomService.getAll().subscribe(
-      rooms => {
-        this.rooms = rooms;
-        // console.log(this.rooms);
-      },
-      error => {
-        this.error = JSON.stringify(error.error);
-        console.log(error.error);
-      }
-    );
   }
 
   deleteRoomConfirmed() {
@@ -60,43 +47,26 @@ export class CartonsComponent {
     this.roomService.delete(this.roomToDelete.id).subscribe(
       () => {
         this.rooms = this.rooms.filter(r => r.id !== this.roomToDelete?.id);
-        this.cancelDeleteRoom();
+        this.commonService.setRooms(this.rooms);
+        this.deleteRoomCancelled();
       },
       error => {
         this.error = error;
-        this.cancelDeleteRoom();
+        this.deleteRoomCancelled();
       }
     );
   }
 
-  confirmDeleteRoom(room: Room) {
+  openDeleteRoomConfirmModal(room: Room) {
+    this.commonService.toggleBlurBackground()
     this.roomToDelete = room;
     this.showDeleteRoomConfirmModal = true;
-    this.commonService.toggleBlurBackground()
   }
 
-  cancelDeleteRoom() {
+  deleteRoomCancelled() {
     this.roomToDelete = null;
     this.commonService.toggleBlurBackground()
     this.showDeleteRoomConfirmModal = false;
-  }
-
-  toggleEditRoomForm(room: Room) {
-    this.roomInEdit = room.id;
-  }
-
-  onRoomAdded(room: Room){
-    this.rooms.push(room);
-    this.showNewRoomForm = !this.showNewRoomForm;
-  }
-
-  onRoomUpdated(room: Room){
-    this.rooms = this.rooms.map(r => r.id === room.id ? room : r);
-    this.roomInEdit = null;
-  }
-
-  toggleNewRoomForm() {
-    this.showNewRoomForm = !this.showNewRoomForm;
   }
 
   toggleDisplayRooms(){

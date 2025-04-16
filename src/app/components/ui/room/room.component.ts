@@ -1,4 +1,4 @@
-import {Component, inject, signal} from '@angular/core';
+import {Component, effect, EventEmitter, inject, Output, signal} from '@angular/core';
 import {RoomFormComponent} from '../room-form/room-form.component';
 import {User} from '../../models/User';
 import {StorageService} from '../../../services/storage.service';
@@ -15,6 +15,8 @@ import {CommonService} from '../../../services/common.service';
   styleUrl: './room.component.css'
 })
 export class RoomComponent {
+  @Output() selectedRoom = new EventEmitter<Room>();
+
   user!: User;
   isLoading = true;
   error: string = "";
@@ -25,12 +27,14 @@ export class RoomComponent {
 
   rooms: Array<Room> = [];
   formRoomFiltered!: FormGroup;
-  selectedRoom: Room | null = null;
   showNewRoomForm: boolean = false;
   roomInEdit: number | null = null;
-  roomToDelete: Room | null = null;
-  showDeleteRoomConfirmModal = false;
-  blurBackground = this.commonService.blurBackground();
+
+  constructor() {
+    effect(() => {
+      this.rooms = this.commonService.rooms();
+    });
+  }
 
   ngOnInit() {
     this.user = this.storageService.getUser();
@@ -42,6 +46,7 @@ export class RoomComponent {
     this.roomService.getAll().subscribe(
       rooms => {
         this.rooms = rooms;
+        this.commonService.setRooms(this.rooms);
         // console.log(this.rooms);
       },
       error => {
@@ -51,33 +56,8 @@ export class RoomComponent {
     );
   }
 
-  deleteRoomConfirmed() {
-    if (!this.roomToDelete) return;
-
-    this.roomService.delete(this.roomToDelete.id).subscribe(
-      () => {
-        this.rooms = this.rooms.filter(r => r.id !== this.roomToDelete?.id);
-        this.cancelDeleteRoom();
-      },
-      error => {
-        this.error = error;
-        this.cancelDeleteRoom();
-      }
-    );
-  }
-
-  confirmDeleteRoom(room: Room) {
-    this.roomToDelete = room;
-    this.showDeleteRoomConfirmModal = true;
-    this.commonService.toggleBlurBackground()
-    // this.blurBackground = true;
-  }
-
-  cancelDeleteRoom() {
-    this.roomToDelete = null;
-    this.commonService.toggleBlurBackground()
-    // this.blurBackground = false;
-    this.showDeleteRoomConfirmModal = false;
+  openDeleteRoomConfirmModal(room: Room) {
+    this.selectedRoom.emit(room);
   }
 
   toggleEditRoomForm(room: Room) {
@@ -86,11 +66,13 @@ export class RoomComponent {
 
   onRoomAdded(room: Room){
     this.rooms.push(room);
+    this.commonService.setRooms(this.rooms);
     this.showNewRoomForm = !this.showNewRoomForm;
   }
 
   onRoomUpdated(room: Room){
     this.rooms = this.rooms.map(r => r.id === room.id ? room : r);
+    this.commonService.setRooms(this.rooms);
     this.roomInEdit = null;
   }
 

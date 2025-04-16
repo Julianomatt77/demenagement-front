@@ -5,46 +5,18 @@
 
   <div>Search  &/or filters</div>
 
-  <span class="material-symbols-outlined cursor-pointer !text-4xl" title="Afficher/masquer les pièces enregistrées" (click)="toggleDisplayRooms()">{{displayRooms ? "expand_less" : "expand_more"}}</span>
-
-  <div id="rooms_list" class="flex flex-col flex-wrap justify-center items-center gap-5 w-full px-4 pb-4 rounded-2xl" [class.hidden]="!displayRooms">
-    <h2 class="pt-0">Pièces enregistrées</h2>
-
-<!--    <app-room />-->
-    <div class="flex flex-wrap justify-center items-center gap-4 w-full" >
-      @for (room of rooms; track room.id) {
-        <div class="relative flex justify-start gap-4 flex-wrap bg-background-200 dark:bg-background-200 w-58 rounded-xl p-4">
-
-          @if (room.id === roomInEdit) {
-            <app-room-form [room]="room" [isEdit]="true" (formSubmitted)="onRoomUpdated($event)"/>
-          } @else {
-            <p class="m-0">{{ room.name }}</p>
-            <span class="material-symbols-outlined cursor-pointer mr-8" title="Modifier le nom" (click)="toggleEditRoomForm(room)">edit</span>
-            <span class="material-symbols-outlined cursor-pointer absolute right-3 top-4 -translate-y-1/2 text-red-800 dark:text-red-500" title="supprimer la pièce" (click)="confirmDeleteRoom(room)">remove_circle</span>
-          }
-        </div>
-      } @empty {
-        <div><span>Vous n'avez aucune pièce enregistrée</span></div>
-      }
-
-      <div>
-        @if (!showNewRoomForm) {
-          <span class="material-symbols-outlined cursor-pointer !text-4xl" title="ajouter une pièce" (click)="toggleNewRoomForm()">add</span>
-        } @else {
-          <app-room-form (formSubmitted)="onRoomAdded($event)"/>
-        }
-      </div>
-
-      @if (error) {
-        <div class="text-red-500">
-          {{ error }}
-        </div>
-      }
+  <div id="rooms_list" class="flex flex-col flex-wrap justify-center items-center gap-5 w-full px-4 pb-4 rounded-2xl" >
+    <div class="w-full flex justify-start items-center gap-6">
+      <h2 class="">Pièces enregistrées</h2>
+      <span class="material-symbols-outlined cursor-pointer !text-4xl" title="Afficher/masquer les pièces enregistrées" (click)="toggleDisplayRooms()">{{displayRooms ? "expand_less" : "expand_more"}}</span>
     </div>
+    <app-room (selectedRoom)="openDeleteRoomConfirmModal($event)" [class.hidden]="!displayRooms"/>
   </div>
 
   <div id="boxes_list" class="flex flex-col flex-wrap justify-center items-center gap-5 w-full px-4 pb-4 rounded-2xl">
-    <h2 class="">Liste des cartons</h2>
+    <div class="w-full flex justify-start items-center gap-6">
+      <h2 class="">Liste des cartons</h2>
+    </div>
 
   </div>
 </div>
@@ -56,8 +28,16 @@
       <p>Cette action est irréversible !</p>
 
       <div class="flex flex-wrap gap-8 justify-between items-center">
-        <button (click)="deleteRoomConfirmed()" class="bg-red-800 hover:bg-red-600 dark:bg-red-800 dark:hover:bg-red-600" title="confirmer la suppression">Oui, supprimer</button>
-        <button (click)="cancelDeleteRoom()" title="annuler la suppression">Annuler</button>
+        <button
+          (click)="deleteRoomConfirmed()"
+          class="bg-red-800 hover:bg-red-600 dark:bg-red-800 dark:hover:bg-red-600"
+          title="confirmer la suppression"
+        >Oui, supprimer</button>
+
+        <button
+          (click)="deleteRoomCancelled()"
+          title="annuler la suppression"
+        >Annuler</button>
       </div>
 
     </div>
