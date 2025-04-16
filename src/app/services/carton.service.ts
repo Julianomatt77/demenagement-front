@@ -20,8 +20,8 @@ export class CartonService {
     return this.http.get<Carton>(this.url + '/' + id);
   }
 
-  create(room: Carton){
-    return this.http.post<Carton>(this.url, room);
+  create(carton: Carton){
+    return this.http.post<Carton>(this.url, carton);
   }
 
   update(id: number, room: Carton){

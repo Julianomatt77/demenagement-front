@@ -30,7 +30,6 @@ export class CartonFormComponent {
 
     effect(() => {
       this.rooms = this.commonService.rooms();
-      console.log(this.rooms)
     });
   }
 
@@ -55,8 +54,6 @@ export class CartonFormComponent {
   }
 
   onSubmit(): void {
-    console.log(this.form.value.room)
-    console.log(this.form.valid)
     if (this.form.valid) {
       this.submitted = true;
       if (this.isEdit) {

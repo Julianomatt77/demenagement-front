@@ -1,0 +1,37 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-wrap justify-start items-center gap-4">
+  <div>
+    <div class="flex flex-wrap justify-start items-center gap-2">
+      <div class="relative">
+        <input
+          class="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+          id="name"
+          type="text"
+          formControlName="name"
+          placeholder="Nom de l'objet'"
+          required
+        />
+      </div>
+      <div class="form-submit">
+        <button type="submit" class="m-0" title="Enregistrer l'objet'">
+          <span class="material-symbols-outlined">save</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap justify-start items-center gap-4 mt-2">
+      <div class="inline-flex items-center gap-2">
+        <label for="in_box" class="text-sm cursor-pointer" title="Le carton est-il fermé?">Objet dans le carton</label>
+        <div class="relative inline-block w-11 h-5">
+          <input [checked]="element.in_box" id="in_box" type="checkbox" class="peer appearance-none w-11 h-5 bg-slate-100 rounded-full checked:bg-primary-600 transition-colors duration-300 cursor-pointer" formControlName="in_box" title="Le carton est-il fermé?"/>
+          <label for="in_box" class="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800 cursor-pointer" title="Le carton est-il fermé?">
+          </label>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  @if(error){
+    <p class="bg-background-200 text-red-800 dark:text-red-500 mt-8">Erreur: {{ error }}</p>
+  }
+</form>

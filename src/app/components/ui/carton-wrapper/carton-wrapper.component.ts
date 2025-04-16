@@ -4,15 +4,20 @@ import {StorageService} from '../../../services/storage.service';
 import {CommonService} from '../../../services/common.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Carton} from '../../models/Carton';
+import {Element} from '../../models/Element';
 import {CartonService} from '../../../services/carton.service';
 import {Room} from '../../models/Room';
 import {CartonFormComponent} from '../carton-form/carton-form.component';
+import {ElementWrapperComponent} from '../element-wrapper/element-wrapper.component';
+import {ElementFormComponent} from '../element-form/element-form.component';
 
 @Component({
   selector: 'app-carton-wrapper',
   standalone: true,
   imports: [
-    CartonFormComponent
+    CartonFormComponent,
+    ElementWrapperComponent,
+    ElementFormComponent
   ],
   templateUrl: './carton-wrapper.component.html',
   styleUrl: './carton-wrapper.component.css'
@@ -34,6 +39,9 @@ export class CartonWrapperComponent {
   showNewCartonForm: boolean = false;
   cartonInEdit: number | null = null;
 
+  showNewElementForm: boolean = false;
+  addElementOnCarton: number | null = null;
+
   constructor() {
     effect(() => {
       this.cartons = this.commonService.cartons();
@@ -51,6 +59,7 @@ export class CartonWrapperComponent {
       cartons => {
         this.cartons = cartons;
         this.commonService.setCartons(this.cartons);
+        // console.log(this.cartons);
       },
       error => {
         this.error = JSON.stringify(error.error);
@@ -81,6 +90,37 @@ export class CartonWrapperComponent {
 
   toggleNewForm() {
     this.showNewCartonForm = !this.showNewCartonForm;
+  }
+
+  toggleNewElementForm(carton: Carton) {
+    this.showNewElementForm = !this.showNewElementForm;
+    this.addElementOnCarton = carton.id
+  }
+
+  onAddElement(element: Element, carton: Carton){
+    const targetCarton = this.cartons.find(c => c.id === carton.id);
+
+    if (targetCarton) {
+      const lastIndex = Object.keys(targetCarton.elements).length;
+      targetCarton.elements[lastIndex] = element;
+
+      this.commonService.setCartons(this.cartons);
+    }
+
+    // this.commonService.setCartons(this.cartons);
+    this.toggleNewElementForm(carton);
+  }
+
+  isNotEmpty(elements: any): boolean {
+    if (Array.isArray(elements)) {
+      return elements.length > 0;
+    }
+
+    if (elements && typeof elements === 'object') {
+      return Object.keys(elements).length > 0;
+    }
+
+    return false;
   }
 
 }
