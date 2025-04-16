@@ -1,0 +1,62 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-wrap justify-start items-center gap-4">
+  <div>
+    <div class="flex flex-wrap justify-start items-center gap-2">
+      <div class="relative">
+        <input
+          class="peer block w-20 rounded-md border border-gray-200 py-[9px] pl-5 text-sm outline-2 placeholder:text-gray-500"
+          id="numero"
+          type="number"
+          formControlName="numero"
+          placeholder="Optionnel: numéro de carton"
+          title="numéro de carton (optionnel)"
+        />
+  <!--      <span class="material-symbols-outlined cursor-pointer-none absolute left-3 top-1/2 -translate-y-1/2 peer-focus:text-gray-900">person_edit</span>-->
+      </div>
+      <div>
+        <select class="peer block w-full rounded-md border border-gray-200 py-[9px] pl-6 text-sm outline-2 placeholder:text-gray-500" id="room" formControlName="room" placeholder="pièce">
+          <option [ngValue]="null" disabled >Choisissez une pièce</option>
+          @for (room of rooms; track room.id) {
+            <option [ngValue]="room.id">{{ room.name }}</option>
+          }
+        </select>
+            @if(!form.get('room') && submitted){
+              <div class="text-red-500">
+                La pièce est obligatoire
+              </div>
+            }
+      </div>
+      <div class="form-submit">
+        <button type="submit" class="m-0" title="Enregistrer la pièce">
+          <span class="material-symbols-outlined">save</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap justify-start items-center gap-4 mt-2">
+      <div class="inline-flex items-center gap-2">
+        <label for="filled" class="text-sm cursor-pointer" title="Le carton est-il fermé?">Ouvert</label>
+        <div class="relative inline-block w-11 h-5">
+          <input [checked]="carton.filled" id="filled" type="checkbox" class="peer appearance-none w-11 h-5 bg-slate-100 rounded-full checked:bg-primary-600 transition-colors duration-300 cursor-pointer" formControlName="filled" title="Le carton est-il fermé?"/>
+          <label for="filled" class="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800 cursor-pointer" title="Le carton est-il fermé?">
+          </label>
+        </div>
+        <label for="filled" class="text-sm cursor-pointer" title="Le carton est-il fermé?">Fermé</label>
+      </div>
+
+      <div class="inline-flex items-center gap-2">
+<!--        <label for="items_removed" class="text-sm cursor-pointer" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?">fermé</label>-->
+        <div class="relative inline-block w-11 h-5">
+          <input [checked]="carton.items_removed" id="items_removed" type="checkbox" class="peer appearance-none w-11 h-5 bg-slate-100 rounded-full checked:bg-primary-600 transition-colors duration-300 cursor-pointer" formControlName="items_removed" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?"/>
+          <label for="items_removed" class="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800 cursor-pointer" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?">
+          </label>
+        </div>
+        <label for="items_removed" class="text-sm cursor-pointer" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?">déballé</label>
+      </div>
+    </div>
+
+  </div>
+
+  @if(error){
+    <p class="bg-background-200 text-red-800 dark:text-red-500 mt-8">Erreur: {{ error }}</p>
+  }
+</form>

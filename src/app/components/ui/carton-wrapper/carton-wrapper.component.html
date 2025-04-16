@@ -1,0 +1,59 @@
+<div class="flex flex-wrap justify-start items-center gap-4 w-full" >
+  @for (carton of cartons; track carton.id) {
+    <div class="relative flex flex-col items-start justify-start gap-4 flex-wrap bg-background-200 dark:bg-background-200 w-58 rounded-xl p-4">
+      @if (carton.id === cartonInEdit) {
+        <app-carton-form [carton]="carton" [isEdit]="true" (formSubmitted)="onUpdate($event)"/>
+      } @else {
+        <div class="flex flex-wrap justify-start items-center gap-4 mt-6">
+          <p class="m-0 bg-secondary-600 dark:bg-secondary-400 text-text-100 dark:text-text-900 px-2 rounded-full">{{ carton.numero }}</p>
+          <p class="m-0">{{ carton.room?.name }}</p>
+          <span class="material-symbols-outlined cursor-pointer mr-8"
+                title="Modifier le nom"
+                (click)="toggleEditCartonForm(carton)"
+          >edit</span>
+        </div>
+
+        <div class="flex flex-wrap justify-start items-center gap-4">
+          <div class="inline-flex items-center gap-2">
+            <label for="filled" class="text-sm" title="Le carton est-il fermé?">Ouvert</label>
+            <div class="relative inline-block w-11 h-5">
+              <input [checked]="carton.filled" disabled id="filled" type="checkbox" class="peer appearance-none w-11 h-5 bg-slate-100 rounded-full checked:bg-primary-600 transition-colors duration-300" title="Le carton est-il fermé?"/>
+              <label for="filled" class="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800" title="Le carton est-il fermé?">
+              </label>
+            </div>
+            <label for="filled" class="text-sm" title="Le carton est-il fermé?">Fermé</label>
+          </div>
+
+          <div class="inline-flex items-center gap-2">
+<!--            <label for="items_removed" class="text-sm" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?">fermé</label>-->
+            <div class="relative inline-block w-11 h-5">
+              <input [checked]="carton.items_removed" disabled id="items_removed" type="checkbox" class="peer appearance-none w-11 h-5 bg-slate-100 rounded-full checked:bg-primary-600 transition-colors duration-300" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?"/>
+              <label for="items_removed" class="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?">
+              </label>
+            </div>
+            <label for="items_removed" class="text-sm" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?">déballé</label>
+          </div>
+        </div>
+
+        <span class="material-symbols-outlined cursor-pointer absolute right-3 top-4 -translate-y-1/2 text-red-800 dark:text-red-500"
+              title="supprimer la carton"
+              (click)="openDeleteConfirmModal(carton)"
+        >remove_circle</span>
+      }
+    </div>
+  } @empty {
+    <div><span>Vous n'avez aucune carton enregistrée</span></div>
+  }
+  <div>
+    @if (!showNewCartonForm) {
+      <span class="material-symbols-outlined cursor-pointer !text-4xl" title="ajouter une carton" (click)="toggleNewForm()">add</span>
+    } @else {
+      <app-carton-form (formSubmitted)="onAdd($event)"/>
+    }
+  </div>
+  @if (error) {
+    <div class="text-red-500">
+      {{ error }}
+    </div>
+  }
+</div>

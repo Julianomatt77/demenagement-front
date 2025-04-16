@@ -67,7 +67,7 @@ export class RoomComponent {
   onRoomAdded(room: Room){
     this.rooms.push(room);
     this.commonService.setRooms(this.rooms);
-    this.showNewRoomForm = !this.showNewRoomForm;
+    this.toggleNewRoomForm()
   }
 
   onRoomUpdated(room: Room){
