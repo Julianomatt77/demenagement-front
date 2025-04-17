@@ -1,5 +1,68 @@
-<h1>Mon déménagement</h1>
-<h2>Mon déménagement</h2>
-<h3>Mon déménagement</h3>
-<h4>Mon déménagement</h4>
-<h5>Mon déménagement</h5>
+<section class="min-h-screen flex flex-col">
+  <header class="text-center py-12">
+    <div class="flex items-center justify-center gap-8">
+      <h1 class="text-4xl font-bold text-text">
+        Mon déménagement
+      </h1>
+      <div>
+        <img
+          src="assets/logo/logo_demenagement_100x100.webp"
+          alt="Logo Mon déménagement"
+          class="w-100 h-100 mx-auto dark:bg-white rounded-full"
+          width="100"
+          height="100"
+        />
+      </div>
+    </div>
+
+    <p class="mt-4 text-lg text-text-800">
+      Organiser votre déménagement en toute simplicité.
+    </p>
+<!--    <p class="mt-4 text-lg text-text-800">-->
+<!--      Générateur de devis gratuit.-->
+<!--    </p>-->
+    <div>
+      <button class="mt-6 dark:bg-primary-400 dark:hover:bg-primary-500 dark:text-secondary-foreground" [routerLink]="['/register']" title="Créer un compte">Commencer</button>
+    </div>
+  </header>
+
+  <div class="py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-semibold text-center text-foreground">
+        Quels services proposons nous ?
+      </h2>
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center p-6 bg-primary dark:bg-secondary-200 shadow rounded-lg">
+          <h3 class="text-xl font-semibold text-text-100 dark:text-text">Cartons</h3>
+          <p class="mt-2 text-text-100 dark:text-text-800">
+            Une interface intuitive pour organiser vos cartons et gagner du temps le jour du déménagement.
+          </p>
+        </div>
+        <div class="text-center p-6 bg-primary dark:bg-secondary-200 shadow rounded-lg">
+          <h3 class="text-xl font-semibold text-text-100 dark:text-text">
+            Déménagement
+          </h3>
+          <p class="mt-2 text-text-100 dark:text-text-800">
+            Renseignez les informations du déménageur en cas de besoin le jour J et comparer les devis.
+          </p>
+        </div>
+        <div class="text-center p-6 bg-primary dark:bg-secondary-200 shadow rounded-lg">
+          <h3 class="text-xl font-semibold text-text-100 dark:text-text">Administratif</h3>
+          <p class="mt-2 text-text-100 dark:text-text-800">
+            Listez et mettez à jour les démarches administratives que vous devrez effectuer après le déménagement.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-row justify-center items-center py-16">
+<!--    <video-->
+<!--      class="w-full h-full lg:w-3/4 lg:h-3/4 border border-text-900 shadow-lg rounded-lg"-->
+<!--      src={demo_video}-->
+<!--      autoPlay-->
+<!--      loop-->
+<!--      muted-->
+<!--      playsInline-->
+<!--    />-->
+  </div>
+</section>

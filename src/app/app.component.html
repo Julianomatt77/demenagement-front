@@ -1,7 +1,7 @@
 <main class="main flex w-full h-full">
   <div class="burger-logo-div fixed top-5 left-5 w-30 z-20 flex gap-12 h-12 justify-center" >
-    <span class="material-symbols-outlined cursor-pointer text-text" (click)="toggleMenu()">{{ isMenuOpen ? "close" : "menu"}}</span>
-    <span class="material-symbols-outlined cursor-pointer text-text" (click)="toggleTheme()">contrast</span>
+    <span class="material-symbols-outlined cursor-pointer text-text" (click)="toggleMenu()" title="Ouvrir/fermer le menu de navigation">{{ isMenuOpen ? "close" : "menu"}}</span>
+    <span class="material-symbols-outlined cursor-pointer text-text" (click)="toggleTheme()" title="Basculer entre le thème clair et sombre">contrast</span>
   </div>
 
   <div class="w-full md:w-56 block" [class.hidden]="!isMenuOpen">

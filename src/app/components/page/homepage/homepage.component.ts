@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import {StorageService} from '../../../services/storage.service';
 import {environment} from '../../../../environments/environment';
+import {RouterModule} from "@angular/router";
 
 const HAS_RELOADED = environment.has_reloaded;
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [],
+    imports: [
+        RouterModule
+    ],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css'
 })
