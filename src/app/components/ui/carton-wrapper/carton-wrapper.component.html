@@ -1,4 +1,11 @@
 <div class="flex flex-wrap justify-start items-center gap-4 w-full" >
+  <div>
+    @if (!showNewCartonForm) {
+    <span class="material-symbols-outlined cursor-pointer !text-4xl" title="ajouter une carton" (click)="toggleNewForm()">add</span>
+    } @else {
+    <app-carton-form (formSubmitted)="onAdd($event)"/>
+    }
+  </div>
   @for (carton of cartons; track carton.id) {
     <div class="relative flex flex-col items-start justify-start gap-4 flex-wrap bg-background-200 dark:bg-background-200 w-58 rounded-xl p-4">
       @if (carton.id === cartonInEdit) {
@@ -36,7 +43,7 @@
         </div>
 
         <span class="material-symbols-outlined cursor-pointer absolute right-3 top-4 -translate-y-1/2 text-red-800 dark:text-red-500"
-              title="supprimer la carton"
+              title="supprimer le carton"
               (click)="openDeleteConfirmModal(carton)"
         >remove_circle</span>
       }
@@ -57,7 +64,6 @@
     </div>
   } @empty {
     <div><span>Vous n'avez aucune carton enregistrée</span></div>
-
   }
   <div>
     @if (!showNewCartonForm) {

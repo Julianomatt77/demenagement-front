@@ -121,7 +121,7 @@ export class AppComponent{
 
   getContentClass(): string {
     if (this.isMobile) {
-      this.contentClass = 'fixed w-full';
+      this.contentClass = 'w-full';
     } else {
       if (this.isMenuOpen) {
         this.contentClass = 'w-full sm:w-11/12 md:w-10/12';

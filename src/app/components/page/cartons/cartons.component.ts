@@ -45,7 +45,7 @@ export class CartonsComponent {
   constructor() {
     effect(() => {
       this.rooms = this.commonService.rooms();
-      this.cartons = this.commonService.cartons();
+      // this.cartons = this.commonService.cartons();
     });
 
     effect(() => {
@@ -60,6 +60,7 @@ export class CartonsComponent {
 
   ngOnInit() {
     this.user = this.storageService.getUser();
+    this.commonService.setBlurBackground(false)
   }
 
   getFilteredCartons(){

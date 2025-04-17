@@ -5,6 +5,7 @@ import {CguComponent} from './components/page/cgu/cgu.component';
 import {ErrorComponent} from './components/page/error/error.component';
 import {authGuard} from './components/guard/auth.guard';
 import {CartonsComponent} from './components/page/cartons/cartons.component';
+import {AdministratifComponent} from './components/page/administratif/administratif.component';
 
 export const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -12,7 +13,7 @@ export const routes: Routes = [
   {path: 'register', component: LoginComponent, data:{registration:true}},
   {path: 'cartons', canActivate: [authGuard], component: CartonsComponent},
   // {path: 'demenageurs', canActivate: [authGuard], component: DemenageursComponent},
-  // {path: 'administratif', canActivate: [authGuard], component: AdministratifComponent},
+  {path: 'administratif', canActivate: [authGuard], component: AdministratifComponent},
   {path: 'cgu',component: CguComponent},
   // {path: 'contact', component: ContactComponent},
   { path: 'not-found', component: ErrorComponent },

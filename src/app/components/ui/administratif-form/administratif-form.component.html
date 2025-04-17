@@ -1,0 +1,109 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="w-full flex justify-start items-center gap-6">
+  @if (!isMobile) {
+  <ng-container>
+  <table class="w-full text-sm shadow table-auto">
+    <thead class="">
+      <tr class="border-spacing-4 border-separate border-spacing-2 border border-gray-800 dark:border-gray-500 p-2 text-left bg-background-200 dark:bg-background-200">
+        <th class="border p-2">Organisme</th>
+        <th class="border p-2">Personne assignée</th>
+        <th class="border p-2">Commentaire</th>
+        <th class="border p-2">Date de la demande</th>
+        <th class="border p-2">Date effectuée</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="border-spacing-2 border-separate border-spacing-2 border border-gray-800 dark:border-gray-500 p-2 text-left bg-background-100 dark:bg-background-300">
+        <td class="border p-2">
+          <input
+                class="peer block w-full rounded-md border border-gray-200 py-[9px] text-sm outline-2 placeholder:text-gray-500"
+                id="company"
+                type="text"
+                formControlName="company"
+                placeholder="Nom de l'organisme"
+                required
+              />
+        </td>
+        <td class="border p-2">
+          <input
+                class="peer block w-full rounded-md border border-gray-200 py-[9px] text-sm outline-2 placeholder:text-gray-500"
+                id="assigned_user"
+                type="text"
+                formControlName="assigned_user"
+                placeholder="Personne concernée"
+              /></td>
+        <td class="border p-2">
+          <input
+          class="peer block w-full rounded-md border border-gray-200 py-[9px] text-sm outline-2 placeholder:text-gray-500"
+          id="comment"
+          type="textarea"
+          formControlName="comment"
+          placeholder="Commentaire"
+        /></td>
+        <td class="border p-2">
+          <input
+            class="peer block w-full rounded-md border border-gray-200 py-[9px] text-sm outline-2 placeholder:text-gray-500"
+            id="date_created"
+            type="date"
+            formControlName="date_created"
+          /></td>
+        <td class="border p-2">
+          <input
+            class="peer block w-full rounded-md border border-gray-200 py-[9px] text-sm outline-2 placeholder:text-gray-500"
+            id="date_done"
+            type="date"
+            formControlName="date_done"
+          /></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="form-submit">
+    <button type="submit" class="m-0" title="Enregistrer l'organisme">
+      <span class="material-symbols-outlined">save</span>
+    </button>
+  </div>
+</ng-container>
+} @else {
+  <ng-container>
+    <div class="flex flex-col gap-4 border shadow p-4 rounded-md bg-background-100 dark:bg-background-300">
+      <div>
+        <label for="company" class="block font-semibold mb-1">Organisme</label>
+        <input id="company" type="text" formControlName="company"
+               class="w-full rounded-md border border-gray-200 py-2 px-3 text-sm" placeholder="Nom de l'organisme" />
+      </div>
+
+      <div>
+        <label for="assigned_user" class="block font-semibold mb-1">Personne assignée</label>
+        <input id="assigned_user" type="text" formControlName="assigned_user"
+               class="w-full rounded-md border border-gray-200 py-2 px-3 text-sm" placeholder="Personne concernée" />
+      </div>
+
+      <div>
+        <label for="comment" class="block font-semibold mb-1">Commentaire</label>
+        <input id="comment" type="text" formControlName="comment"
+               class="w-full rounded-md border border-gray-200 py-2 px-3 text-sm" placeholder="Commentaire" />
+      </div>
+
+      <div>
+        <label for="date_created" class="block font-semibold mb-1">Date de la demande</label>
+        <input id="date_created" type="date" formControlName="date_created"
+               class="w-full rounded-md border border-gray-200 py-2 px-3 text-sm" />
+      </div>
+
+      <div>
+        <label for="date_done" class="block font-semibold mb-1">Date effectuée</label>
+        <input id="date_done" type="date" formControlName="date_done"
+               class="w-full rounded-md border border-gray-200 py-2 px-3 text-sm" />
+      </div>
+      <div class="form-submit">
+        <button type="submit" class="m-0" title="Enregistrer l'organisme">
+          Enregistrer
+        </button>
+      </div>
+    </div>
+  </ng-container>
+}
+
+</form>
+@if(error){
+  <p class="bg-background-200 text-red-800 dark:text-red-500 mt-8">Erreur: {{ error }}</p>
+}

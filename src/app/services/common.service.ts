@@ -1,6 +1,7 @@
 import {Injectable, signal} from '@angular/core';
 import {Room} from '../components/models/Room';
 import {Carton} from '../components/models/Carton';
+import {Administratif} from '../components/models/administratif';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class CommonService {
   blurBackground = signal(false);
   rooms = signal<Room[]>([]);
   cartons = signal<Carton[]>([]);
+  administratifList = signal<Administratif[]>([]);
   url = new URL(window.location.href)
   urlParamsString = signal(this.url.search)
 
@@ -19,12 +21,20 @@ export class CommonService {
     this.blurBackground = signal(!this.blurBackground())
   }
 
+  setBlurBackground(value: boolean) {
+    this.blurBackground = signal(value)
+  }
+
   setRooms(rooms: Array<Room>){
     this.rooms.set(rooms);
   }
 
   setCartons(cartons: Array<Carton>){
     this.cartons.set(cartons);
+  }
+
+  setAdministratifList(administratifList: Array<Administratif>){
+    this.administratifList.set(administratifList);
   }
 
   readUrlParameters(): { name: string, value: string }[] {

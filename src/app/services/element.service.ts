@@ -20,8 +20,8 @@ export class ElementService {
     return this.http.get<Element>(this.url + '/' + id);
   }
 
-  create(room: Element){
-    return this.http.post<Element>(this.url, room);
+  create(element: Element){
+    return this.http.post<Element>(this.url, element);
   }
 
   update(id: number, element: Element){
