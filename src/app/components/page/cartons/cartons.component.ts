@@ -9,11 +9,12 @@ import {RoomComponent} from '../../ui/room/room.component';
 import {CartonWrapperComponent} from '../../ui/carton-wrapper/carton-wrapper.component';
 import {Carton} from '../../models/Carton';
 import {CartonService} from '../../../services/carton.service';
+import {SearchSectionComponent} from '../../ui/search-section/search-section.component';
 
 @Component({
   selector: 'app-cartons',
   standalone: true,
-  imports: [RoomComponent, CartonWrapperComponent],
+  imports: [RoomComponent, CartonWrapperComponent, SearchSectionComponent],
   templateUrl: './cartons.component.html',
   styleUrl: './cartons.component.css'
 })
@@ -39,6 +40,8 @@ export class CartonsComponent {
   cartonToDelete: Carton | null = null;
   showDeleteCartonConfirmModal = false;
 
+  urlParamsString = "";
+
   constructor() {
     effect(() => {
       this.rooms = this.commonService.rooms();
@@ -48,10 +51,29 @@ export class CartonsComponent {
     effect(() => {
       this.cartons = this.commonService.cartons();
     });
+
+    effect(() => {
+      this.urlParamsString = this.commonService.urlParamsString();
+      this.getFilteredCartons();
+    })
   }
 
   ngOnInit() {
     this.user = this.storageService.getUser();
+  }
+
+  getFilteredCartons(){
+    this.cartonService.getAll().subscribe(
+      cartons => {
+        this.cartons = cartons;
+        this.commonService.setCartons(this.cartons);
+        // console.log(this.cartons);
+      },
+      error => {
+        this.error = JSON.stringify(error.error);
+        console.log(error.error);
+      }
+    );
   }
 
   deleteRoomConfirmed() {

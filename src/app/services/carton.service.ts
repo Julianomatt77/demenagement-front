@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import {effect, inject, Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Carton} from '../components/models/Carton';
+import {CommonService} from './common.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +10,21 @@ import {Carton} from '../components/models/Carton';
 export class CartonService {
   private baseUrl = environment.baseUrl;
   private url = this.baseUrl + 'cartons';
+  urlParamsString = "";
+  commonService = inject(CommonService);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    effect(() => {
+      this.urlParamsString = this.commonService.urlParamsString();
+    })
+  }
 
   getAll(){
+    this.url = this.baseUrl + 'cartons';
+    if (this.urlParamsString) {
+      this.url = this.baseUrl + 'cartons' + this.urlParamsString;
+    }
+
     return this.http.get<Carton[]>(this.url);
   }
 
