@@ -1,0 +1,72 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="w-full flex flex-col justify-start items-center gap-6 relative">
+  <div class="absolute top-2 right-24 flex gap-12 h-12 justify-center " >
+    <span class="material-symbols-outlined cursor-pointer text-red-500 !text-4xl" (click)="closeForm()" title="Fermer le formulaire">cancel</span>
+  </div>
+
+  <div class="w-10/12 flex flex-col flex-wrap justify-center items-start text-start border shadow rounded p-4 bg-background-100 dark:bg-background-300">
+    <div class="w-full mt-4">
+      <label for="name" class="block font-semibold mb-1">Entreprise</label>
+      <input id="name" type="text" formControlName="name"
+             class="w-full rounded-md border border-gray-200 py-2 px-3 text-sm" placeholder="Nom de l'entreprise" required/>
+    </div>
+
+    <h3 class="underline">Informations</h3>
+    <div class="w-full flex gap-4 justify-start items-center flex-wrap">
+      <div>
+        <label for="email" class="block font-semibold mb-1">Adresse email</label>
+        <input id="email" type="email" formControlName="email"
+               class="w-full rounded-md border border-gray-200 py-2 px-3 text-sm" placeholder="email@gmail.com" />
+      </div>
+      <div>
+        <label for="phone" class="block font-semibold mb-1">Téléphone</label>
+        <input id="phone" type="tel" formControlName="phone"
+               class="w-full rounded-md border border-gray-200 py-2 px-3 text-sm" placeholder="06 00 00 00 00" />
+      </div>
+    </div>
+
+    <h3 class="underline">Devis</h3>
+    <div class="w-full flex gap-4 justify-start items-center flex-wrap">
+      <div>
+        <label for="devis_reference" class="block font-semibold mb-1">Référence du devis</label>
+        <input id="devis_reference" type="texte" formControlName="devis_reference"
+               class="w-full rounded-md border border-gray-200 py-2 px-3 text-sm" placeholder="AA-2025-002" />
+      </div>
+      <div>
+        <label for="devis_date" class="block font-semibold mb-1">Date du devis</label>
+        <input id="devis_date" type="date" formControlName="devis_date"
+               class="w-full rounded-md border border-gray-200 py-2 px-3 text-sm" />
+      </div>
+      <div>
+        <label for="devis_price" class="block font-semibold mb-1">Montant du devis</label>
+        <input id="devis_price" type="number" formControlName="devis_price"
+               class="w-full rounded-md border border-gray-200 py-2 px-3 text-sm" placeholder="1500 €" />
+      </div>
+    </div>
+
+    <h3 class="underline">Paiements</h3>
+    <div>
+      <label for="paid" class="block font-semibold mb-1">Montant payé</label>
+      <input id="paid" type="number" formControlName="paid"
+             class="w-full rounded-md border border-gray-200 py-2 px-3 text-sm" placeholder="500 €" />
+    </div>
+
+    <h3 class="underline">Commentaires</h3>
+    <div class="w-10/12 flex gap-4 justify-start items-center flex-wrap">
+      <label for="comment" class="block font-semibold mb-1">Commentaire</label>
+      <input id="comment" type="textarea" formControlName="comment"
+             class="w-full rounded-md border border-gray-200 py-2 px-3 text-sm" placeholder="Commentaire" />
+    </div>
+
+    <div class="absolute right-24 bottom-2">
+      <button type="submit" class="m-0" title="Enregistrer l'entreprise">
+        <span class="material-symbols-outlined">save</span>
+      </button>
+    </div>
+
+  </div>
+</form>
+@if(error){
+  <p class="bg-background-200 text-red-800 dark:text-red-500 mt-8">Erreur: {{ error }}</p>
+}
+
+

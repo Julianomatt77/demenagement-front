@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {Administratif} from '../../models/administratif';
+import {Administratif} from '../../models/Administratif';
 import {CommonService} from '../../../services/common.service';
 import {AdministratifService} from '../../../services/administratif.service';
 

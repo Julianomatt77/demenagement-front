@@ -6,13 +6,14 @@ import {ErrorComponent} from './components/page/error/error.component';
 import {authGuard} from './components/guard/auth.guard';
 import {CartonsComponent} from './components/page/cartons/cartons.component';
 import {AdministratifComponent} from './components/page/administratif/administratif.component';
+import {DemenageurComponent} from './components/page/demenageur/demenageur.component';
 
 export const routes: Routes = [
   { path: '', component: HomepageComponent },
   {path: 'login', component: LoginComponent},
   {path: 'register', component: LoginComponent, data:{registration:true}},
   {path: 'cartons', canActivate: [authGuard], component: CartonsComponent},
-  // {path: 'demenageurs', canActivate: [authGuard], component: DemenageursComponent},
+  {path: 'demenageurs', canActivate: [authGuard], component: DemenageurComponent},
   {path: 'administratif', canActivate: [authGuard], component: AdministratifComponent},
   {path: 'cgu',component: CguComponent},
   // {path: 'contact', component: ContactComponent},

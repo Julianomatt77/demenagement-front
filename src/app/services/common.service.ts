@@ -1,7 +1,8 @@
 import {Injectable, signal} from '@angular/core';
 import {Room} from '../components/models/Room';
 import {Carton} from '../components/models/Carton';
-import {Administratif} from '../components/models/administratif';
+import {Administratif} from '../components/models/Administratif';
+import {Demenageur} from '../components/models/Demenageur';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class CommonService {
   rooms = signal<Room[]>([]);
   cartons = signal<Carton[]>([]);
   administratifList = signal<Administratif[]>([]);
+  demenageurList = signal<Demenageur[]>([]);
   url = new URL(window.location.href)
   urlParamsString = signal(this.url.search)
 
@@ -35,6 +37,10 @@ export class CommonService {
 
   setAdministratifList(administratifList: Array<Administratif>){
     this.administratifList.set(administratifList);
+  }
+
+  setDemenageurList(demenageurList: Array<Demenageur>){
+    this.demenageurList.set(demenageurList);
   }
 
   readUrlParameters(): { name: string, value: string }[] {

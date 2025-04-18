@@ -1,0 +1,84 @@
+<div class="w-full p-4 sm:p-8" [class.blur-2xl]="commonService.blurBackground()">
+  <div class="relative flex w-full flex-col items-center space-y-2.5 p-4">
+    <h1 class="font-bold capitalize">Déménageurs</h1>
+  </div>
+  @if (!showNewForm && !demenageurInEdit) {
+  <div>
+    <button class="bg-primary dark:bg-primary-300 mt-0 mb-4 " title="Ajouter un nouveau déménageur" (click)="toggleNewForm()">Ajouter un déménageur</button>
+  </div>
+  }
+
+  <div id="company_list" class="flex flex-col flex-wrap justify-center items-center gap-5 w-full px-4 pb-4 rounded-2xl">
+      <div class="flex flex-col gap-4" [class.hidden]="showNewForm || demenageurInEdit">
+        @for(demenageur of demenageurList; track demenageur.id){
+          <div class="flex flex-col flex-wrap justify-center items-start text-start border shadow rounded p-4 bg-background-100 dark:bg-background-300">
+            <h2 class="w-full font-bold capitalize text-center">{{ demenageur.name }}</h2>
+            <h3 class="underline">Informations</h3>
+            <div class="w-full"><strong class="mr-4">Email:</strong> {{ demenageur.email }}</div>
+            <div><strong class="mr-4">Téléphone:</strong> {{ demenageur.phone }}</div>
+
+            <h3 class="underline">Devis</h3>
+            <div><strong class="mr-4">Référence du devis:</strong> {{ demenageur.devis_reference }}</div>
+            <div><strong class="mr-4">Date du devis:</strong> {{ demenageur.devis_date | date: 'dd/MM/yyyy' }}</div>
+            <div><strong class="mr-4">Montant du devis:</strong> {{ demenageur.devis_price | currency:'EUR':'symbol-narrow':'1.2-2' : 'fr-FR'  }}</div>
+
+            <h3 class="underline">Paiements</h3>
+            <div><strong class="mr-4">Montant payé:</strong> {{ demenageur.paid | currency:'EUR':'symbol-narrow':'1.2-2' : 'fr-FR' }}</div>
+            <div><strong class="mr-4">Montant restant à payer:</strong> {{ demenageur.left_to_paid | currency:'EUR':'symbol-narrow':'1.2-2' : 'fr-FR' }}</div>
+
+            <h3 class="underline">Commentaires</h3>
+            <div class="mb-4">{{ demenageur.comment }}</div>
+
+            <div class="mt-2 w-full flex justify-between gap-4">
+              @if(!demenageurInEdit && !showNewForm){
+              <div><span class="material-symbols-outlined cursor-pointer"
+                    title="Modifier"
+                    (click)="toggleEditForm(demenageur)">edit</span></div>
+              <div><span class="material-symbols-outlined cursor-pointer text-red-800 dark:text-red-500"
+                    title="supprimer"
+                    (click)="openDeleteConfirmModal(demenageur)">remove_circle</span></div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    @if (!showNewForm && !demenageurInEdit) {
+    <div>
+      <button class="bg-primary dark:bg-primary-300 mt-0 mb-4 " title="Ajouter un nouveau déménageur" (click)="toggleNewForm()">Ajouter un déménageur</button>
+    </div>
+    }
+
+    @if (showNewForm) {
+    <app-demenageur-form (formSubmitted)="onAdd($event)" (formClosed)="toggleNewForm()" class="w-full"/>
+    }
+    @if (demenageurInEdit) {
+    <app-demenageur-form [demenageur]="demenageurInEdit" [isEdit]="true" (formSubmitted)="onUpdate($event)" (formClosed)="closeEditForm()" class="w-full"/>
+    }
+
+  </div>
+</div>
+
+@if(showDeleteDemenageurConfirmModal){
+  <div method="dialog" class="absolute top-1/3 left-0 mx-5 md:left-1/3 bg-background-200 dark:bg-background-200 flex justify-center items-center z-10 rounded-xl p-4 w-11/12 md:w-2/5 md:min-w-[40%] md:max-w-[40%] shadow-sm">
+    <div class="p-1 rounded-xl">
+      <p>Voulez-vous vraiment supprimer ce déménageur "{{ demenageurToDelete?.name }}" ?</p>
+      <p>Cette action est irréversible !</p>
+
+      <div class="flex flex-wrap gap-8 justify-between items-center">
+        <button
+        (click)="deleteConfirmed()"
+        class="bg-red-800 hover:bg-red-600 dark:bg-red-800 dark:hover:bg-red-600"
+        title="confirmer la suppression"
+        >Oui, supprimer
+        </button>
+
+        <button
+        (click)="deleteCancelled()"
+        title="annuler la suppression"
+        >Annuler
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
