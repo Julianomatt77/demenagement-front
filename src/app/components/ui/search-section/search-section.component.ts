@@ -2,6 +2,7 @@ import {Component, effect, inject} from '@angular/core';
 import {CommonService} from '../../../services/common.service';
 import {Room} from '../../models/Room';
 import {FormsModule} from '@angular/forms';
+import {Carton} from '../../models/Carton';
 
 @Component({
   selector: 'app-search-section',
@@ -15,8 +16,10 @@ import {FormsModule} from '@angular/forms';
 export class SearchSectionComponent {
   search = "";
   roomSelected: number | null = null;
+  cartonSelected: number | null = null;
   private pageInputTimeout: any;
   rooms: Array<Room> = [];
+  cartons: Array<Carton> = [];
 
   commonService = inject(CommonService)
 
@@ -24,6 +27,10 @@ export class SearchSectionComponent {
   constructor() {
     effect(() => {
       this.rooms = this.commonService.rooms();
+    });
+
+    effect(() => {
+      this.cartons = this.commonService.cartons();
     });
   }
 
@@ -42,6 +49,13 @@ export class SearchSectionComponent {
     if (roomParam) {
       if (roomParam) {
         this.roomSelected = +roomParam;
+      }
+    }
+
+    const cartonParam = urlParams?.get('box');
+    if (cartonParam) {
+      if (cartonParam) {
+        this.cartonSelected = +cartonParam;
       }
     }
   }
@@ -82,5 +96,17 @@ export class SearchSectionComponent {
   resetAllFilters() {
     this.resetSearch();
     this.resetRoom();
+    this.resetCarton();
+  }
+
+  filterCarton(event: Event) {
+    this.commonService.deleteParam('box');
+    const id = (event.target as HTMLSelectElement).value;
+    this.commonService.setAnyParmam('box', id)
+  }
+
+  resetCarton() {
+    this.commonService.deleteParam('box');
+    this.cartonSelected = null;
   }
 }
