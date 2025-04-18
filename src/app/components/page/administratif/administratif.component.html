@@ -3,10 +3,23 @@
     <h1 class="font-bold capitalize">Administratif (changement d'adresse)</h1>
   </div>
 
-  <div id="company_list" class="flex flex-col flex-wrap justify-center items-center gap-5 w-full px-4 pb-4 rounded-2xl">
+  <div id="company_list" class="flex flex-col flex-wrap justify-center items-start gap-5 w-full px-4 pb-4 rounded-2xl">
+    <div class="inline-flex items-center gap-2">
+      <div class="relative inline-block w-11 h-5">
+        <input
+          [checked]="onlyShowInProgress"
+          id="only-show-in-progress"
+          type="checkbox"
+          class="peer appearance-none w-11 h-5 bg-slate-100 rounded-full checked:bg-primary-600 transition-colors duration-300 cursor-pointer"
+          title="Ne montrer que les démarches restantes"
+          (click)="toggleInProgress()"/>
+        <label for="only-show-in-progress" class="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800 cursor-pointer" title="Ne montrer que les démarches restantes">
+        </label>
+      </div>
+      <label for="only-show-in-progress" class="text-sm" title="Ne montrer que les démarches restantes">Ne montrer que les démarches encore en cours</label>
+    </div>
 
     @if (!isMobile) {
-
     <ng-container>
     <div id="administratif-wrapper" class="w-full flex justify-start items-center gap-6">
       <table class="w-full text-sm shadow table-auto">
@@ -22,25 +35,27 @@
         </thead>
         <tbody>
         @for(administratif of administratifList; track administratif.id){
-          <tr class="border-spacing-2 border-separate border-spacing-2 border border-gray-800 dark:border-gray-500 p-2 text-left bg-background-100 dark:bg-background-300">
-            <td class="border p-2">{{administratif.company}}</td>
-            <td class="border p-2">{{administratif.assigned_user}}</td>
-            <td class="border p-2">{{administratif.comment}}</td>
-            <td class="border p-2">{{administratif.date_created | date: 'dd/MM/yyyy'}}</td>
-            <td class="border p-2">{{administratif.date_done | date: 'dd/MM/yyyy'}}</td>
-            <td class="border p-2">
-            @if(!administratifInEdit && !showNewForm){
-            <span class="material-symbols-outlined cursor-pointer mr-4"
-                title="Modifier"
-                (click)="toggleEditForm(administratif)"
-            >edit</span>
-            <span class="material-symbols-outlined cursor-pointer absolute text-red-800 dark:text-red-500"
-                  title="supprimer"
-                  (click)="openDeleteConfirmModal(administratif)"
-            >remove_circle</span>
-            }
-            </td>
-          </tr>
+          @if(!onlyShowInProgress || (onlyShowInProgress && !administratif.date_done)){
+            <tr class="border-spacing-2 border-separate border-spacing-2 border border-gray-800 dark:border-gray-500 p-2 text-left bg-background-100 dark:bg-background-300" >
+              <td class="border p-2">{{administratif.company}}</td>
+              <td class="border p-2">{{administratif.assigned_user}}</td>
+              <td class="border p-2">{{administratif.comment}}</td>
+              <td class="border p-2">{{administratif.date_created | date: 'dd/MM/yyyy'}}</td>
+              <td class="border p-2">{{administratif.date_done | date: 'dd/MM/yyyy'}}</td>
+              <td class="border p-2">
+              @if(!administratifInEdit && !showNewForm){
+              <span class="material-symbols-outlined cursor-pointer mr-4"
+                  title="Modifier"
+                  (click)="toggleEditForm(administratif)"
+              >edit</span>
+              <span class="material-symbols-outlined cursor-pointer absolute text-red-800 dark:text-red-500"
+                    title="supprimer"
+                    (click)="openDeleteConfirmModal(administratif)"
+              >remove_circle</span>
+              }
+              </td>
+            </tr>
+          }
         }
           @if (!showNewForm && !administratifInEdit) {
           <tr><span class="material-symbols-outlined cursor-pointer !text-4xl" title="ajouter un organisme" (click)="toggleNewForm()">add_circle</span></tr>
@@ -55,23 +70,30 @@
     <ng-container class="relative">
       <div class="flex flex-col gap-4" [class.blur-2xl]="commonService.blurBackground()">
         @for(administratif of administratifList; track administratif.id){
-        <div class="flex flex-col flex-wrap justify-center items-start text-start border shadow rounded p-4 bg-background-100 dark:bg-background-300">
-          <div><strong class="mr-4">Organisme:</strong> {{ administratif.company }}</div>
-          <div><strong class="mr-4">Assigné à:</strong> {{ administratif.assigned_user }}</div>
-          <div><strong class="mr-4">Commentaire:</strong> {{ administratif.comment }}</div>
-          <div><strong class="mr-4">Date demande:</strong> {{ administratif.date_created | date: 'dd/MM/yyyy' }}</div>
-          <div><strong class="mr-4">Date effectuée:</strong> {{ administratif.date_done | date: 'dd/MM/yyyy' }}</div>
-          <div class="mt-2 w-full flex justify-between gap-4">
-            @if(!administratifInEdit && !showNewForm){
-        <div><span class="material-symbols-outlined cursor-pointer"
-              title="Modifier"
-              (click)="toggleEditForm(administratif)">edit</span></div>
-        <div><span class="material-symbols-outlined cursor-pointer text-red-800 dark:text-red-500"
-              title="supprimer"
-              (click)="openDeleteConfirmModal(administratif)">remove_circle</span></div>
-        }
-        </div>
-      </div>
+          @if(!onlyShowInProgress || (onlyShowInProgress && !administratif.date_done)){
+            <div class="flex flex-col flex-wrap justify-center items-start text-start border shadow rounded p-4 bg-background-100 dark:bg-background-300">
+              <div><strong class="mr-4">Organisme:</strong> {{ administratif.company }}</div>
+              <div><strong class="mr-4">Assigné à:</strong> {{ administratif.assigned_user }}</div>
+              <div><strong class="mr-4">Commentaire:</strong> {{ administratif.comment }}</div>
+              <div><strong class="mr-4">Date demande:</strong> {{ administratif.date_created | date: 'dd/MM/yyyy' }}</div>
+              <div><strong class="mr-4">Date effectuée:</strong> {{ administratif.date_done | date: 'dd/MM/yyyy' }}</div>
+              <div class="mt-2 w-full flex justify-between gap-4">
+                @if(!administratifInEdit && !showNewForm){
+                  <div>
+                    <span
+                      class="material-symbols-outlined cursor-pointer"
+                      title="Modifier"
+                      (click)="toggleEditForm(administratif)">edit</span></div>
+                  <div>
+                    <span
+                      class="material-symbols-outlined cursor-pointer text-red-800 dark:text-red-500"
+                      title="supprimer"
+                      (click)="openDeleteConfirmModal(administratif)">remove_circle</span>
+                  </div>
+                }
+              </div>
+            </div>
+          }
         }
       </div>
       @if (!showNewForm && !administratifInEdit) {

@@ -36,6 +36,7 @@ export class AdministratifComponent {
   showNewForm: boolean = false;
   administratifInEditId: number | null = null;
   administratifInEdit: Administratif | null = null;
+  onlyShowInProgress = false;
 
   constructor() {
     effect(() => {
@@ -131,4 +132,7 @@ export class AdministratifComponent {
     }
   }
 
+  toggleInProgress() {
+    this.onlyShowInProgress = !this.onlyShowInProgress;
+  }
 }

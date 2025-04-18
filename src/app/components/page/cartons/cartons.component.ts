@@ -10,6 +10,7 @@ import {CartonWrapperComponent} from '../../ui/carton-wrapper/carton-wrapper.com
 import {Carton} from '../../models/Carton';
 import {CartonService} from '../../../services/carton.service';
 import {SearchSectionComponent} from '../../ui/search-section/search-section.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-cartons',
@@ -42,7 +43,7 @@ export class CartonsComponent {
 
   urlParamsString = "";
 
-  constructor() {
+  constructor(private router: Router) {
     effect(() => {
       this.rooms = this.commonService.rooms();
       // this.cartons = this.commonService.cartons();
