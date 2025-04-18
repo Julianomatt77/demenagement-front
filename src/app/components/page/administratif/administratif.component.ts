@@ -53,9 +53,9 @@ export class AdministratifComponent {
 
     this.commonService.setBlurBackground(false)
 
-    this.isMobile = window.innerWidth < 640;
+    this.isMobile = window.innerWidth < 768;
     window.addEventListener('resize', () => {
-      this.isMobile = window.innerWidth < 640;
+      this.isMobile = window.innerWidth < 768;
     });
   }
 
@@ -112,9 +112,6 @@ export class AdministratifComponent {
     this.administratifList.push(administratif);
     this.commonService.setAdministratifList(this.administratifList);
     this.toggleNewForm();
-    if (this.isMobile){
-      this.commonService.toggleBlurBackground()
-    }
   }
 
   onUpdate(administratif: Administratif){
@@ -129,6 +126,9 @@ export class AdministratifComponent {
 
   toggleNewForm() {
     this.showNewForm = !this.showNewForm;
+    if (this.isMobile){
+      this.commonService.toggleBlurBackground()
+    }
   }
 
 }

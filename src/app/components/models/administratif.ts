@@ -3,10 +3,10 @@ export class Administratif {
   private _company: string;
   private _assigned_user: string;
   private _comment: string;
-  private _date_created: Date | null;
-  private _date_done: Date | null;
+  private _date_created: Date | string |null;
+  private _date_done: Date | string |null;
 
-  constructor(id: number, company: string, assigned_user: string, comment: string, date_created: Date | null, date_done: Date | null) {
+  constructor(id: number, company: string, assigned_user: string, comment: string, date_created: Date | string |null, date_done: Date | string |null) {
     this._id = id;
     this._company = company;
     this._assigned_user = assigned_user;
@@ -47,19 +47,19 @@ export class Administratif {
     this._comment = value;
   }
 
-  get date_created(): Date | null {
+  get date_created(): Date | string | null {
     return this._date_created;
   }
 
-  set date_created(value: Date | null) {
+  set date_created(value: Date | string |null) {
     this._date_created = value;
   }
 
-  get date_done(): Date | null {
+  get date_done(): Date | string |null {
     return this._date_done;
   }
 
-  set date_done(value: Date | null) {
+  set date_done(value: Date | string |null) {
     this._date_done = value;
   }
 }

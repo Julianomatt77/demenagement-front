@@ -41,18 +41,22 @@ export class AdministratifFormComponent {
     });
 
     if (this.isEdit) {
+      //Correction de l'erreur de l'affichage de la date
+      const dateCreated = this.administratif.date_created?.toString().substring(0, 10);
+      const dateDone = this.administratif.date_done?.toString().substring(0, 10);
+
       this.form = this.fb.group({
         company: [this.administratif.company, Validators.required],
         assigned_user: [this.administratif.assigned_user],
         comment: [this.administratif.comment],
-        date_created: this.administratif.date_created,
-        date_done: this.administratif.date_done,
+        date_created: dateCreated,
+        date_done: dateDone,
       });
     }
 
-    this.isMobile = window.innerWidth < 640;
+    this.isMobile = window.innerWidth < 768;
     window.addEventListener('resize', () => {
-      this.isMobile = window.innerWidth < 640;
+      this.isMobile = window.innerWidth < 768;
     });
   }
 

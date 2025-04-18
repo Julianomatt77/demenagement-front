@@ -52,7 +52,7 @@
     </ng-container>
     }@else {
 
-    <ng-container >
+    <ng-container class="relative">
       <div class="flex flex-col gap-4" [class.blur-2xl]="commonService.blurBackground()">
         @for(administratif of administratifList; track administratif.id){
         <div class="flex flex-col flex-wrap justify-center items-start text-start border shadow rounded p-4 bg-background-100 dark:bg-background-300">
@@ -76,16 +76,16 @@
       </div>
       @if (!showNewForm && !administratifInEdit) {
         <div>
-          <button class="bg-primary dark:bg-primary-300 mt-0 mb-4" title="Ajouter un nouvel organisme" (click)="toggleNewForm()">Ajouter un organisme</button>
+          <button class="bg-primary dark:bg-primary-300 mt-0 mb-4 " title="Ajouter un nouvel organisme" (click)="toggleNewForm()">Ajouter un organisme</button>
         </div>
       }
     </ng-container>
     }
     @if (showNewForm) {
-      <app-administratif-form (formSubmitted)="onAdd($event)" [class.fixed]="isMobile"/>
+      <app-administratif-form (formSubmitted)="onAdd($event)" [class.absolute]="isMobile"/>
     }
     @if (administratifInEdit) {
-      <app-administratif-form [administratif]="administratifInEdit" [isEdit]="true" (formSubmitted)="onUpdate($event)" [class.fixed]="isMobile"/>
+      <app-administratif-form [administratif]="administratifInEdit" [isEdit]="true" (formSubmitted)="onUpdate($event)" [class.absolute]="isMobile"/>
     }
 
   </div>
