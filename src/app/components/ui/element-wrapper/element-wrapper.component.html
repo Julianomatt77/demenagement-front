@@ -3,8 +3,8 @@
       @if (element.id === elementInEdit) {
         <app-element-form [carton]="carton" [element]="element" [isEdit]="true" (formSubmitted)="onUpdate($event, carton)"/>
       } @else {
-        <div class="flex flex-wrap justify-start items-center gap-4">
-          <p class="m-0 bg-secondary-600 dark:bg-secondary-400 text-text-100 dark:text-text-900 px-4 rounded-full">{{ element.name }}</p>
+        <div class="flex flex-wrap justify-start items-center gap-2">
+          <p class="m-0 bg-secondary-600 dark:bg-secondary-400 text-text-100 dark:text-text-900 px-4 rounded-full cursor-pointer" (click)="toggleEditForm(element)">{{ element.name }}</p>
 
           <div class="inline-flex items-center gap-2">
             <div class="relative inline-block w-11 h-5">
@@ -22,11 +22,7 @@
           </div>
 
           <div>
-            <span class="material-symbols-outlined cursor-pointer"
-                  title="Modifier le nom"
-                  (click)="toggleEditForm(element)"
-            >edit</span>
-            <span class="material-symbols-outlined cursor-pointer text-red-800 dark:text-red-500 mx-4"
+            <span class="material-symbols-outlined cursor-pointer text-red-800 dark:text-red-500"
                   title="supprimer l'élément"
                   (click)="deleteElement(element, carton)"
             >remove_circle</span>

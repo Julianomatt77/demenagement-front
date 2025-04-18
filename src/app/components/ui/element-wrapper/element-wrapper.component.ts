@@ -94,6 +94,7 @@ export class ElementWrapperComponent {
     this.elementService.delete(element.id).subscribe(
         (data) => {
           this.getAllCartons();
+          console.log('Objet ' + element.name + ' supprimé du carton ' + carton.numero);
         },
         error => {
           this.error = error;
