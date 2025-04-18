@@ -3,13 +3,13 @@
     @if (!showNewCartonForm) {
     <span class="material-symbols-outlined cursor-pointer !text-4xl" title="ajouter une carton" (click)="toggleNewForm()">add</span>
     } @else {
-    <app-carton-form (formSubmitted)="onAdd($event)"/>
+    <app-carton-form (formSubmitted)="onAdd($event)" (formClosed)="toggleNewForm()"/>
     }
   </div>
   @for (carton of cartons; track carton.id) {
     <div class="relative flex flex-col items-start justify-start gap-4 flex-wrap bg-background-200 dark:bg-background-200 w-58 rounded-xl p-4">
       @if (carton.id === cartonInEdit) {
-        <app-carton-form [carton]="carton" [isEdit]="true" (formSubmitted)="onUpdate($event)"/>
+        <app-carton-form [carton]="carton" [isEdit]="true" (formSubmitted)="onUpdate($event)" (formClosed)="closeEditForm()"/>
       } @else {
         <div class="flex flex-wrap justify-start items-center gap-4 mt-6">
           <p class="m-0 bg-secondary-600 dark:bg-secondary-400 text-text-100 dark:text-text-900 px-2 rounded-full">{{ carton.numero }}</p>
@@ -81,7 +81,7 @@
     @if (!showNewCartonForm) {
       <span class="material-symbols-outlined cursor-pointer !text-4xl" title="ajouter une carton" (click)="toggleNewForm()">add</span>
     } @else {
-      <app-carton-form (formSubmitted)="onAdd($event)"/>
+      <app-carton-form (formSubmitted)="onAdd($event)" (formClosed)="toggleNewForm()"/>
     }
   </div>
   @if (error) {

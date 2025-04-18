@@ -122,4 +122,8 @@ export class ElementWrapperComponent {
   asArray(elements: any): any[] {
     return Array.isArray(elements) ? elements : Object.values(elements);
   }
+
+  closeEditForm(){
+    this.elementInEdit = null;
+  }
 }

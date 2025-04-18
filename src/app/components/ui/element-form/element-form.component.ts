@@ -16,6 +16,7 @@ import {CommonService} from '../../../services/common.service';
 })
 export class ElementFormComponent {
   @Output() formSubmitted: EventEmitter<Element>;
+  @Output() formClosed: EventEmitter<boolean>;
   @Input() carton!: Carton;
   @Input() isEdit!: boolean;
   @Input() element!: Element;
@@ -26,6 +27,7 @@ export class ElementFormComponent {
 
   constructor(private fb: FormBuilder, private elementService: ElementService, private commonService: CommonService) {
     this.formSubmitted = new EventEmitter<Element>();
+    this.formClosed = new EventEmitter<boolean>();
 
     if (!this.isEdit) {
       this.element = new Element(0, "", false, false, this.carton);
@@ -81,5 +83,9 @@ export class ElementFormComponent {
         this.error = "Formulaire invalide";
       }
     }
+  }
+
+  closeForm(){
+    this.formClosed.emit(true);
   }
 }

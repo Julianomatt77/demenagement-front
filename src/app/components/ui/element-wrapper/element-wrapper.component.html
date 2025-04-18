@@ -1,7 +1,7 @@
 <div class="flex flex-wrap justify-start items-center gap-4 mt-6">
   @for (element of asArray(carton.elements); track element.id) {
       @if (element.id === elementInEdit) {
-        <app-element-form [carton]="carton" [element]="element" [isEdit]="true" (formSubmitted)="onUpdate($event, carton)"/>
+        <app-element-form [carton]="carton" [element]="element" [isEdit]="true" (formClosed)="closeEditForm()" (formSubmitted)="onUpdate($event, carton)"/>
       } @else {
         <div class="flex flex-wrap justify-start items-center gap-2">
           <p class="m-0 bg-secondary-600 dark:bg-secondary-400 text-text-100 dark:text-text-900 px-4 rounded-full cursor-pointer" (click)="toggleEditForm(element)">{{ element.name }}</p>
@@ -38,6 +38,6 @@
   @if (!showNewElementForm) {
     <span class="material-symbols-outlined cursor-pointer !text-4xl" title="ajouter une carton" (click)="toggleNewForm()">add</span>
   } @else {
-    <app-element-form [carton]="carton" (formSubmitted)="onAdd($event, carton)"/>
+    <app-element-form [carton]="carton" (formSubmitted)="onAdd($event, carton)" (formClosed)="toggleNewForm()"/>
   }
 </div>

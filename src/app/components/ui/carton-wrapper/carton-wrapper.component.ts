@@ -146,6 +146,8 @@ export class CartonWrapperComponent {
       });
   }
 
-
+  closeEditForm(){
+    this.cartonInEdit = null;
+  }
 
 }
