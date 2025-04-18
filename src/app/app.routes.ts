@@ -7,6 +7,7 @@ import {authGuard} from './components/guard/auth.guard';
 import {CartonsComponent} from './components/page/cartons/cartons.component';
 import {AdministratifComponent} from './components/page/administratif/administratif.component';
 import {DemenageurComponent} from './components/page/demenageur/demenageur.component';
+import {ContactComponent} from './components/page/contact/contact.component';
 
 export const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -16,7 +17,7 @@ export const routes: Routes = [
   {path: 'demenageurs', canActivate: [authGuard], component: DemenageurComponent},
   {path: 'administratif', canActivate: [authGuard], component: AdministratifComponent},
   {path: 'cgu',component: CguComponent},
-  // {path: 'contact', component: ContactComponent},
+  {path: 'contact', component: ContactComponent},
   { path: 'not-found', component: ErrorComponent },
   { path: '**', redirectTo: 'not-found'}
 ];
