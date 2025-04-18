@@ -6,11 +6,9 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {Carton} from '../../models/Carton';
 import {Element} from '../../models/Element';
 import {CartonService} from '../../../services/carton.service';
-import {Room} from '../../models/Room';
 import {CartonFormComponent} from '../carton-form/carton-form.component';
 import {ElementWrapperComponent} from '../element-wrapper/element-wrapper.component';
 import {ElementFormComponent} from '../element-form/element-form.component';
-import {data} from 'autoprefixer';
 
 @Component({
   selector: 'app-carton-wrapper',
