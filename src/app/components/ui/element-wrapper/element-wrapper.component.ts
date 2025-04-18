@@ -118,30 +118,6 @@ export class ElementWrapperComponent {
     this.updateElement(element, carton);
   }
 
-  /*
-  onToggleInBox(event: Event, element: Element, carton :Carton) {
-    const isChecked = (event.target as HTMLInputElement).checked;
-
-
-    const data = {
-      ...element,
-      in_box: isChecked,
-      out_box: !isChecked
-    };
-
-    this.elementService.update(element.id, data).subscribe(
-      updatedElement => {
-        element.in_box = updatedElement.in_box;
-        this.onUpdate(updatedElement,  carton)
-      },
-      error => {
-        console.error(error);
-      }
-    );
-  }
-   */
-
-
   asArray(elements: any): any[] {
     return Array.isArray(elements) ? elements : Object.values(elements);
   }
