@@ -22,23 +22,35 @@
 
         <div class="flex flex-wrap justify-start items-center gap-4">
           <div class="inline-flex items-center gap-2">
-            <label for="filled" class="text-sm" title="Le carton est-il fermé?">Ouvert</label>
+            <label for="filled-{{carton.id}}" class="text-sm" title="Le carton est-il fermé?">Ouvert</label>
             <div class="relative inline-block w-11 h-5">
-              <input [checked]="carton.filled" disabled id="filled" type="checkbox" class="peer appearance-none w-11 h-5 bg-slate-100 rounded-full checked:bg-primary-600 transition-colors duration-300" title="Le carton est-il fermé?"/>
-              <label for="filled" class="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800" title="Le carton est-il fermé?">
+              <input #filledInput
+                     [checked]="carton.filled"
+                     id="filled-{{carton.id}}"
+                     type="checkbox"
+                     class="peer appearance-none w-11 h-5 bg-slate-100 rounded-full checked:bg-primary-600 transition-colors duration-300 cursor-pointer"
+                     title="Le carton est-il fermé?"
+                     (click)="toggleCartonFilled(carton, filledInput)"/>
+              <label for="filled-{{carton.id}}" class="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800" title="Le carton est-il fermé?">
               </label>
             </div>
-            <label for="filled" class="text-sm" title="Le carton est-il fermé?">Remplie</label>
+            <label for="filled-{{carton.id}}" class="text-sm" title="Le carton est-il fermé?">Remplie</label>
           </div>
 
           <div class="inline-flex items-center gap-2">
 <!--            <label for="items_removed" class="text-sm" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?">fermé</label>-->
             <div class="relative inline-block w-11 h-5">
-              <input [checked]="carton.items_removed" disabled id="items_removed" type="checkbox" class="peer appearance-none w-11 h-5 bg-slate-100 rounded-full checked:bg-primary-600 transition-colors duration-300" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?"/>
-              <label for="items_removed" class="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?">
+              <input #deballeInput
+                     [checked]="carton.items_removed"
+                     id="items_removed-{{carton.id}}"
+                     type="checkbox"
+                     class="peer appearance-none w-11 h-5 bg-slate-100 rounded-full checked:bg-primary-600 transition-colors duration-300 cursor-pointer"
+                     title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?"
+                     (click)="toggleCartonDeballe(carton, deballeInput)"/>
+              <label for="items_removed-{{carton.id}}" class="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?">
               </label>
             </div>
-            <label for="items_removed" class="text-sm" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?">déballé</label>
+            <label for="items_removed-{{carton.id}}" class="text-sm" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?">déballé</label>
           </div>
         </div>
 

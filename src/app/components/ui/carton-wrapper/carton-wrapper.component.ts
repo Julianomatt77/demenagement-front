@@ -10,6 +10,7 @@ import {Room} from '../../models/Room';
 import {CartonFormComponent} from '../carton-form/carton-form.component';
 import {ElementWrapperComponent} from '../element-wrapper/element-wrapper.component';
 import {ElementFormComponent} from '../element-form/element-form.component';
+import {data} from 'autoprefixer';
 
 @Component({
   selector: 'app-carton-wrapper',
@@ -122,5 +123,29 @@ export class CartonWrapperComponent {
 
     return false;
   }
+
+  toggleCartonFilled(carton: Carton, input: HTMLInputElement) {
+    const isFilled = input.checked;
+    carton.filled = isFilled;
+    this.updateCarton(carton);
+  }
+
+  toggleCartonDeballe(carton: Carton, input: HTMLInputElement){
+    const isDeballe = input.checked;
+    carton.items_removed = isDeballe;
+    this.updateCarton(carton);
+  }
+
+  updateCarton(carton: Carton){
+    this.cartonService.update(carton.id, carton).subscribe((carton) => {
+        this.onUpdate(carton);
+      },
+      error => {
+        this.error = JSON.stringify(error.error);
+        console.log(error.error);
+      });
+  }
+
+
 
 }
