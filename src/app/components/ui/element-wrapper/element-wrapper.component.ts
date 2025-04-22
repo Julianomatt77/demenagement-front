@@ -64,7 +64,7 @@ export class ElementWrapperComponent {
 
     if (targetCarton) {
       const lastIndex = Object.keys(targetCarton.elements).length;
-      targetCarton.elements[lastIndex] = element;
+      targetCarton.elements[lastIndex +1] = element;
 
       this.commonService.setCartons(CARTONS);
     }

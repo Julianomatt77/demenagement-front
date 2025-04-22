@@ -1,7 +1,7 @@
 <div class="relative flex flex-wrap justify-start items-center gap-4 w-full" >
   <div>
     @if (!showNewCartonForm) {
-    <span class="material-symbols-outlined cursor-pointer !text-4xl" title="ajouter une carton" (click)="toggleNewForm()">add</span>
+    <span class="material-symbols-outlined cursor-pointer !text-4xl" title="ajouter un carton" (click)="toggleNewForm()">add</span>
     } @else {
     <app-carton-form (formSubmitted)="onAdd($event)" (formClosed)="toggleNewForm()"/>
     }
@@ -65,7 +65,7 @@
         <div class="flex flex-wrap justify-start items-center gap-4 mt-6">
           <p class="mb-0">Carton vide</p>
           @if (!showNewElementForm || addElementOnCarton !== carton.id) {
-            <div><span class="material-symbols-outlined cursor-pointer !text-4xl" title="ajouter un élément" (click)="toggleNewElementForm(carton)">add</span></div>
+            <div><span class="material-symbols-outlined cursor-pointer !text-4xl" title="ajouter un objet" (click)="toggleNewElementForm(carton)">add</span></div>
           } @else if(addElementOnCarton === carton.id) {
             <app-element-form [carton]="carton" (formSubmitted)="onAddElement($event, carton)"/>
           }
@@ -74,7 +74,7 @@
       }
     </div>
   } @empty {
-    <div><span>Vous n'avez aucune carton enregistrée</span></div>
+    <div><span>Vous n'avez aucune carton enregistré</span></div>
   }
   <div>
     @if (!showNewCartonForm) {

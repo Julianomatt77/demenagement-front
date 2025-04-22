@@ -36,7 +36,7 @@
       }
   }
   @if (!showNewElementForm) {
-    <span class="material-symbols-outlined cursor-pointer !text-4xl" title="ajouter une carton" (click)="toggleNewForm()">add</span>
+    <span class="material-symbols-outlined cursor-pointer !text-4xl" title="ajouter un objet" (click)="toggleNewForm()">add</span>
   } @else {
     <app-element-form [carton]="carton" (formSubmitted)="onAdd($event, carton)" (formClosed)="toggleNewForm()"/>
   }
