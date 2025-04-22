@@ -14,8 +14,7 @@ const HAS_RELOADED = environment.has_reloaded;
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    RouterModule,
-    ReactiveFormsModule
+    RouterModule
   ],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.css',
@@ -136,14 +135,14 @@ export class LoginFormComponent {
                 }, 2000);
               },
               error: (error) => {
-                this.error = error
+                this.error = error.error.message
                 console.error(error)
                 this.isLoginFailed = true;
               },
             })
         },
         error: (error) => {
-          this.error = error
+          this.error = error.error.message
           console.error(error)
           this.isLoginFailed = true;
         },

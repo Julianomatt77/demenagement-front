@@ -5,6 +5,10 @@
     </div>
     <app-login-form class="w-full mb-7"/>
 
+    <div class="w-full">
+      <p> <a [routerLink]="['/forgotten-pwd']" title="mot de passe oublié" class="underline">Mot de passe oublié</a></p>
+    </div>
+
     @if(isRegistration){
       <div class="w-full">
         <p>Vous avez déjà un compte ? <a [routerLink]="['/login']" title="se connecter" class="underline">Se connecter</a></p>

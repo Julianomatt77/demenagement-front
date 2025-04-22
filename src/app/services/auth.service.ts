@@ -18,6 +18,7 @@ export class AuthService {
   private loginUrl = this.baseUrl + 'login_check';
   private registerUrl = this.baseUrl + 'register';
   private userInfosUrl = this.baseUrl + 'users-infos';
+  private forgottenPwd = this.baseUrl + 'password/forgot';
 
   constructor(private http: HttpClient, private router: Router, private storageService: StorageService) {}
 
@@ -73,6 +74,22 @@ export class AuthService {
       username,
       email,
       password,
+    });
+  }
+
+  sendForgottenPwdEmail(email: string){
+    const website = window.location.origin;
+    const body = {
+      'email': email,
+      'website': website
+    }
+    return this.http.post<any>(this.forgottenPwd, body);
+  }
+
+  resetPassword(password: string, token: string | null){
+    const url = this.baseUrl + 'password/reset/' + token;
+    return this.http.patch<any>(url, {
+      password
     });
   }
 
