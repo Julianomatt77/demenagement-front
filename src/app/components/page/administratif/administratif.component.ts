@@ -135,4 +135,12 @@ export class AdministratifComponent {
   toggleInProgress() {
     this.onlyShowInProgress = !this.onlyShowInProgress;
   }
+
+  closeEditForm(){
+    this.administratifInEditId = null;
+    this.administratifInEdit = null;
+    if (this.isMobile){
+      this.commonService.toggleBlurBackground()
+    }
+  }
 }

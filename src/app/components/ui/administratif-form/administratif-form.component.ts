@@ -15,6 +15,7 @@ import {AdministratifService} from '../../../services/administratif.service';
 })
 export class AdministratifFormComponent {
   @Output() formSubmitted: EventEmitter<Administratif>;
+  @Output() formClosed: EventEmitter<boolean>;
   @Input() administratif!: Administratif;
   @Input() isEdit!: boolean;
 
@@ -25,6 +26,7 @@ export class AdministratifFormComponent {
 
   constructor(private fb: FormBuilder, private administratifService: AdministratifService, private commonService: CommonService) {
     this.formSubmitted = new EventEmitter<Administratif>();
+    this.formClosed = new EventEmitter<boolean>();
 
     if (!this.isEdit) {
       this.administratif = new Administratif(0, "", "", "", null,  null);
@@ -89,6 +91,10 @@ export class AdministratifFormComponent {
         this.error = "Formulaire invalide";
       }
     }
+  }
+
+  closeForm(){
+    this.formClosed.emit(true);
   }
 
 }

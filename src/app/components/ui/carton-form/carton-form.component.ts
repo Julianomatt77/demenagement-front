@@ -52,8 +52,6 @@ export class CartonFormComponent {
         room: [this.carton.room?.id ?? '', Validators.required]
       });
     }
-    // console.log(this.room)
-    // console.log(this.isEdit)
   }
 
   onSubmit(): void {

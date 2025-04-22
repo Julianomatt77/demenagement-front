@@ -79,4 +79,8 @@ export class RoomComponent {
   toggleNewRoomForm() {
     this.showNewRoomForm = !this.showNewRoomForm;
   }
+
+  closeEditForm(){
+    this.roomInEdit = null;
+  }
 }

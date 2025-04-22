@@ -12,14 +12,17 @@
       <span class="material-symbols-outlined cursor-pointer-none absolute left-3 top-1/2 -translate-y-1/2 peer-focus:text-gray-900">person_edit</span>
     </div>
     @if(!form.get('name')?.valid && submitted){
-    <div class="text-red-500">
-    Erreur
-    </div>
+      <div class="text-red-500">
+        Erreur
+      </div>
     }
   </div>
   <div class="form-submit">
     <button type="submit" class="m-0" title="Enregistrer la pièce">
       <span class="material-symbols-outlined">save</span>
     </button>
+  </div>
+  <div class="flex gap-12 h-12 justify-center " >
+    <span class="material-symbols-outlined cursor-pointer text-red-500 !text-4xl" (click)="closeForm()" title="Fermer le formulaire">cancel</span>
   </div>
 </form>

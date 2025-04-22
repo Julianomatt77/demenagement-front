@@ -14,19 +14,18 @@ import {RoomService} from '../../../services/room.service';
 })
 export class RoomFormComponent {
   @Output() formSubmitted: EventEmitter<Room>;
-  // @Input() id!: number;
+  @Output() formClosed: EventEmitter<boolean>;
   @Input() isEdit!: boolean;
   @Input() room!: Room;
 
   form!: FormGroup;
-  // room!: Room;
-  // userId!: number | string;
 
   submitted: boolean = false;
 
-
   constructor(private fb: FormBuilder, private roomService: RoomService) {
     this.formSubmitted = new EventEmitter<Room>();
+    this.formClosed = new EventEmitter<boolean>();
+
     if (!this.isEdit) {
       this.room = new Room(0, "");
     }
@@ -42,8 +41,6 @@ export class RoomFormComponent {
         name: [this.room.name, Validators.required]
       });
     }
-    // console.log(this.room)
-    // console.log(this.isEdit)
   }
 
   onSubmit(): void {
@@ -62,4 +59,9 @@ export class RoomFormComponent {
       }
     }
   }
+
+  closeForm(){
+    this.formClosed.emit(true);
+  }
+
 }

@@ -2,7 +2,7 @@
   @for (room of rooms; track room.id) {
     <div class="relative flex justify-start gap-4 flex-wrap bg-background-200 dark:bg-background-200 w-58 rounded-xl p-4">
       @if (room.id === roomInEdit) {
-        <app-room-form [room]="room" [isEdit]="true" (formSubmitted)="onRoomUpdated($event)"/>
+        <app-room-form [room]="room" [isEdit]="true" (formSubmitted)="onRoomUpdated($event)" (formClosed)="closeEditForm()"/>
       } @else {
         <p class="m-0">{{ room.name }}</p>
         <span class="material-symbols-outlined cursor-pointer mr-8"
@@ -23,7 +23,7 @@
     @if (!showNewRoomForm) {
       <span class="material-symbols-outlined cursor-pointer !text-4xl" title="ajouter une pièce" (click)="toggleNewRoomForm()">add</span>
     } @else {
-      <app-room-form (formSubmitted)="onRoomAdded($event)"/>
+      <app-room-form (formSubmitted)="onRoomAdded($event)" (formClosed)="toggleNewRoomForm()"/>
     }
   </div>
 

@@ -61,10 +61,13 @@
       <span class="material-symbols-outlined">save</span>
     </button>
   </div>
+  <div class="flex gap-12 h-12 justify-center " >
+        <span class="material-symbols-outlined cursor-pointer text-red-500 !text-4xl" (click)="closeForm()" title="Fermer le formulaire">cancel</span>
+      </div>
 </ng-container>
 } @else {
   <ng-container>
-    <div class="flex flex-col gap-4 border shadow p-4 rounded-md bg-background-100 dark:bg-background-300">
+    <div class="relative flex flex-col gap-4 border shadow p-4 rounded-md bg-background-100 dark:bg-background-300">
       <div>
         <label for="company" class="block font-semibold mb-1">Organisme</label>
         <input id="company" type="text" formControlName="company"
@@ -98,6 +101,10 @@
         <button type="submit" class="m-0" title="Enregistrer l'organisme">
           Enregistrer
         </button>
+      </div>
+
+      <div class="absolute top-0 right-0 flex gap-12 h-12 justify-center " >
+        <span class="material-symbols-outlined cursor-pointer text-red-500 !text-4xl" (click)="closeForm()" title="Fermer le formulaire">cancel</span>
       </div>
     </div>
   </ng-container>

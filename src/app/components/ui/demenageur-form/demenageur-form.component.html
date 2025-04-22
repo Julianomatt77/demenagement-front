@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="w-full flex flex-col justify-start items-center gap-6 relative">
-  <div class="absolute top-2 right-24 flex gap-12 h-12 justify-center " >
+  <div class="absolute top-2 right-10 sm:right-24 flex gap-12 h-12 justify-center " >
     <span class="material-symbols-outlined cursor-pointer text-red-500 !text-4xl" (click)="closeForm()" title="Fermer le formulaire">cancel</span>
   </div>
 
@@ -57,7 +57,7 @@
              class="w-full rounded-md border border-gray-200 py-2 px-3 text-sm" placeholder="Commentaire" rows="5"></textarea>
     </div>
 
-    <div class="absolute right-24 bottom-2">
+    <div class="absolute right-10 sm:right-24 bottom-2">
       <button type="submit" class="m-0" title="Enregistrer l'entreprise">
         <span class="material-symbols-outlined">save</span>
       </button>

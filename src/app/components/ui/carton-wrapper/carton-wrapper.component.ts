@@ -28,6 +28,7 @@ export class CartonWrapperComponent {
   isLoading = true;
   error: string = "";
   fb = inject(FormBuilder);
+  isMobile: boolean = false;
 
   storageService = inject(StorageService);
   commonService = inject(CommonService);
@@ -51,6 +52,11 @@ export class CartonWrapperComponent {
     this.user = this.storageService.getUser();
 
     this.getAllCartons();
+
+    this.isMobile = window.innerWidth < 768;
+    window.addEventListener('resize', () => {
+      this.isMobile = window.innerWidth < 768;
+    });
   }
 
   getAllCartons() {
@@ -69,10 +75,16 @@ export class CartonWrapperComponent {
 
   openDeleteConfirmModal(carton: Carton) {
     this.selectedCarton.emit(carton);
+    // if (this.isMobile){
+    //   this.commonService.toggleBlurBackground()
+    // }
   }
 
   toggleEditCartonForm(carton: Carton) {
     this.cartonInEdit = carton.id;
+    // if (this.isMobile){
+    //   this.commonService.toggleBlurBackground()
+    // }
   }
 
   onAdd(carton: Carton){
