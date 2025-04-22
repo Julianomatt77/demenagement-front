@@ -36,11 +36,20 @@ export class AuthService {
   }
 
   saveToken(token: string): void {
-    window.sessionStorage.setItem(this.tokenName, token);
+    const expires = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toUTCString(); // 2 jours
+    document.cookie = `${this.tokenName}=${encodeURIComponent(token)}; expires=${expires}; path=/; SameSite=Strict`;
   }
 
   getToken(): string | null {
-    return window.sessionStorage.getItem(this.tokenName);
+    const nameEQ = this.tokenName + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i].trim();
+      if (c.indexOf(nameEQ) === 0) {
+        return decodeURIComponent(c.substring(nameEQ.length));
+      }
+    }
+    return null;
   }
 
   isLoggedIn(): boolean {

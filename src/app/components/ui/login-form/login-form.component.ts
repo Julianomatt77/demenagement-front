@@ -134,11 +134,17 @@ export class LoginFormComponent {
                 setTimeout(() => {
                   this.router.navigateByUrl('');
                 }, 2000);
-              }
+              },
+              error: (error) => {
+                this.error = error
+                console.error(error)
+                this.isLoginFailed = true;
+              },
             })
         },
         error: (error) => {
-          this.error = error.error.message
+          this.error = error
+          console.error(error)
           this.isLoginFailed = true;
         },
       })
