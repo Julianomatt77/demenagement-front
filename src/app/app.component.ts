@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, HostListener, Inject, OnInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {ThemeService} from './services/theme.service';
 import {Meta} from '@angular/platform-browser';
@@ -31,6 +31,7 @@ export class AppComponent{
   isMobile = false;
   private resizeListener: any;
   contentClass = 'w-full xs:w-11/12 md:w-10/12';
+  showScrollTop = false;
 
   constructor(private themeService: ThemeService, private metaService: Meta, @Inject(DOCUMENT) private document: Document) {
     this.metaService.addTags([
@@ -140,6 +141,15 @@ export class AppComponent{
     } else {
       return 'full';
     }
+  }
+
+  @HostListener('window:scroll', [])
+  onScroll(): void {
+    this.showScrollTop = window.scrollY > 200;
+  }
+
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
 }

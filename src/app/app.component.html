@@ -23,6 +23,15 @@
     <router-outlet />
   </section>
 
+  <button
+    class="fixed bottom-5 right-5 z-50 bg-primary text-white p-2 rounded-full shadow-lg transition-opacity duration-300 text-4xl"
+    [class.opacity-0]="!showScrollTop"
+    [class.pointer-events-none]="!showScrollTop"
+    (click)="scrollToTop()"
+    title="Remonter en haut"
+  >
+    ↑
+  </button>
 </main>
 
 
