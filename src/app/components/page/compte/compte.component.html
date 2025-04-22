@@ -1,17 +1,17 @@
-<section class="flex items-center justify-center md:h-screen">
+<section class="flex items-center justify-center md:h-screen" [class.blur-2xl]="commonService.blurBackground()">
   <div class="relative mx-auto flex w-full max-w-[400px] flex-col p-4 md:-mt-32 items-start">
     <div class="w-full">
-      <h1 class="font-bold capitalize">Réinitialisez votre mot de passe</h1>
+      <h1 class="font-bold capitalize">Gestion de votre compte</h1>
     </div>
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="items-start text-start w-full mb-7">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="items-start w-full mb-7 text-start">
       <div class="w-full">
         <div class="mt-4">
           <label
             class="mb-3 mt-5 block text-xs font-medium"
             htmlFor="password"
           >
-            Mot de passe
+            Nouveau mot de passe
           </label>
           <div class="relative">
             <input
@@ -36,7 +36,7 @@
           }
 
           @if(!form.get('password')?.valid && submitted){
-          <div class="text-red-500">
+          <div class="text-red-500 p-2">
           {{ error }}
           </div>
           }
@@ -46,7 +46,7 @@
         <div class="mt-4">
           <div class="relative">
             <label class="mb-3 mt-5 block text-xs font-medium"
-            htmlFor="password">Confirmer le mot de passe</label>
+                   htmlFor="password">Confirmer le mot de passe</label>
 
             <div class="relative">
               <input
@@ -55,23 +55,23 @@
                 id="confirmPassword"
                 placeholder="Confirmer votre mot de passe"
                 formControlName="confirmPassword"
-                >
+              >
 
-               <span class="material-symbols-outlined cursor-pointer-none absolute left-3 top-1/2 -translate-y-1/2 peer-focus:text-gray-900">key</span>
-                <span class="material-symbols-outlined cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 peer-focus:text-gray-900" (click)="togglePasswordVisibility()">{{passwordFieldIcon}}</span>
+              <span class="material-symbols-outlined cursor-pointer-none absolute left-3 top-1/2 -translate-y-1/2 peer-focus:text-gray-900">key</span>
+              <span class="material-symbols-outlined cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 peer-focus:text-gray-900" (click)="togglePasswordVisibility()">{{passwordFieldIcon}}</span>
+            </div>
           </div>
-      </div>
-    </div>
+        </div>
 
-      @if(!form.get('confirmPassword')?.value && submitted){
-        <div class="text-red-500">
-          {{ confirmPasswordMissingErrorMessage }}
+        @if(!form.get('confirmPassword')?.value && submitted){
+        <div class="text-red-500 p-2">
+        {{ confirmPasswordMissingErrorMessage }}
         </div>
         }
 
         @if(form.get('confirmPassword')?.value && submitted && form.valid && !isPasswordConfirmed){
-        <div class="text-red-500">
-          {{ confirmPasswordErrorMessage }}
+        <div class="text-red-500 p-2">
+        {{ confirmPasswordErrorMessage }}
         </div>
         }
 
@@ -82,21 +82,49 @@
         </div>
 
         @if (success){
-        <p class="bg-background-200 text-green-900 dark:text-green-500 mt-8">{{success}}.</p>
+        <p class="bg-background-200 text-green-900 dark:text-green-500 mt-8 p-2">{{success}}.</p>
         }
 
         @if(error){
-        <p class="bg-background-200 text-red-800 dark:text-red-500 mt-8">Erreur : {{ error }}</p>
+        <p class="bg-background-200 text-red-800 dark:text-red-500 mt-8 p-2">Erreur : {{ error }}</p>
         }
       </div>
     </form>
 
-    <div class="w-full">
-      <p> <a [routerLink]="['/login']" title="se connecter" class="underline">Retour à la page de connection</a></p>
-    </div>
     <div>
-      <p>Pas encore de compte ? <a [routerLink]="['/register']" title="s'enregistrer" class="underline">Créer un compte</a></p>
+      <button class="bg-red-800 dark:bg-red-500 dark:text-background hover:bg-red-700 dark:hover:bg-red-400" (click)="openDeleteConfirmModal()">Supprimer mon compte</button>
     </div>
-
   </div>
 </section>
+
+@if(showDeleteConfirmModal){
+  <div method="dialog" class="fixed top-1/3 left-0 mx-5 md:left-1/3 bg-background-200 dark:bg-background-200 flex justify-center items-center z-10 rounded-xl p-4 w-11/12 md:w-2/5 md:min-w-[40%] md:max-w-[40%] shadow-sm">
+    <div class="p-1 rounded-xl">
+      <p>Voulez-vous vraiment supprimer votre compte ?</p>
+      <p>Cette action est irréversible !</p>
+
+      <div class="flex flex-wrap gap-8 justify-between items-center">
+        <button
+        (click)="deleteAccount()"
+        class="bg-red-800 hover:bg-red-600 dark:bg-red-800 dark:hover:bg-red-600"
+        title="confirmer la suppression"
+        >Oui, supprimer</button>
+
+        <button
+        (click)="closeDeleteConfirmModal()"
+        title="annuler la suppression"
+        >Annuler</button>
+      </div>
+
+      @if (success){
+        <p class="bg-background-200 text-green-900 dark:text-green-500 mt-8 p-2">{{success}}.</p>
+      }
+
+      @if(error){
+        <p class="bg-background-200 text-red-800 dark:text-red-500 mt-8 p-2">Erreur : {{ error }}</p>
+      }
+
+    </div>
+  </div>
+}
+

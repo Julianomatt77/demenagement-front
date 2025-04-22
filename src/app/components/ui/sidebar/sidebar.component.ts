@@ -1,9 +1,10 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, effect, EventEmitter, Input, Output} from '@angular/core';
 import {ThemeService} from '../../../services/theme.service';
 import {AuthService} from '../../../services/auth.service';
 import {StorageService} from '../../../services/storage.service';
 import {Router, RouterModule} from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import {CommonService} from '../../../services/common.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -37,13 +38,18 @@ export class SidebarComponent {
   isDesktopInitialState = true;
   private resizeListener: any;
 
-  constructor(private themeService: ThemeService, private authService: AuthService, private storageService: StorageService, private router: Router) {
+  constructor(private themeService: ThemeService, private authService: AuthService, private storageService: StorageService, private router: Router, private commonService: CommonService) {
     this.updateMenuOpen = new EventEmitter<boolean>();
+
+    effect(() => {
+      this.isLoggedIn = this.commonService.isLoggedIn();
+    });
   }
 
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
+      this.commonService.setIsLoggedIn(true);
     }
 
     this.getIsMobile();
@@ -73,6 +79,7 @@ export class SidebarComponent {
       this.router.navigateByUrl('');
       this.storageService.clean();
     });
+    this.commonService.setIsLoggedIn(false);
     this.isLoggedIn = false;
   }
 

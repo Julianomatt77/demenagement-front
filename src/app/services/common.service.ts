@@ -10,6 +10,7 @@ import {Demenageur} from '../components/models/Demenageur';
 export class CommonService {
 
   blurBackground = signal(false);
+  isLoggedIn = signal(false);
   rooms = signal<Room[]>([]);
   cartons = signal<Carton[]>([]);
   administratifList = signal<Administratif[]>([]);
@@ -25,6 +26,10 @@ export class CommonService {
 
   setBlurBackground(value: boolean) {
     this.blurBackground = signal(value)
+  }
+
+  setIsLoggedIn(value: boolean){
+    this.isLoggedIn.set(value);
   }
 
   setRooms(rooms: Array<Room>){

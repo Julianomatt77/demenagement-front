@@ -36,7 +36,6 @@ export class StorageService {
   public isLoggedIn(): boolean {
     const user = this.getCookie(TOKEN_KEY);
     return !!user;
-
   }
 
   private getCookie(name: string): string | null {

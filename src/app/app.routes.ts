@@ -10,6 +10,7 @@ import {DemenageurComponent} from './components/page/demenageur/demenageur.compo
 import {ContactComponent} from './components/page/contact/contact.component';
 import {ForgottenPwdComponent} from './components/page/forgotten-pwd/forgotten-pwd.component';
 import {ResetPwdComponent} from './components/page/reset-pwd/reset-pwd.component';
+import {CompteComponent} from './components/page/compte/compte.component';
 
 export const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -20,6 +21,7 @@ export const routes: Routes = [
   {path: 'cartons', canActivate: [authGuard], component: CartonsComponent},
   {path: 'demenageurs', canActivate: [authGuard], component: DemenageurComponent},
   {path: 'administratif', canActivate: [authGuard], component: AdministratifComponent},
+  {path: 'compte', canActivate: [authGuard], component: CompteComponent},
   {path: 'cgu',component: CguComponent},
   {path: 'contact', component: ContactComponent},
   { path: 'not-found', component: ErrorComponent },

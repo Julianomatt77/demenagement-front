@@ -18,7 +18,9 @@ export class AuthService {
   private loginUrl = this.baseUrl + 'login_check';
   private registerUrl = this.baseUrl + 'register';
   private userInfosUrl = this.baseUrl + 'users-infos';
+  private deleteAccountUrl = this.baseUrl + 'user-delete';
   private forgottenPwd = this.baseUrl + 'password/forgot';
+  private updatePwd = this.baseUrl + 'password/update';
 
   constructor(private http: HttpClient, private router: Router, private storageService: StorageService) {}
 
@@ -91,6 +93,16 @@ export class AuthService {
     return this.http.patch<any>(url, {
       password
     });
+  }
+
+  updatePassword(password: string){
+    return this.http.patch<any>(this.updatePwd, {
+      password
+    });
+  }
+
+  deleteAccount(){
+    return this.http.delete<any>(this.deleteAccountUrl);
   }
 
 }

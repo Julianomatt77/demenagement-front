@@ -1,38 +1,37 @@
 import {Component, inject} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {AuthService} from '../../../services/auth.service';
 import {CommonService} from '../../../services/common.service';
-import {Router, RouterModule} from '@angular/router';
+import {AuthService} from '../../../services/auth.service';
+import {Router} from '@angular/router';
+import {StorageService} from '../../../services/storage.service';
 
 @Component({
-  selector: 'app-reset-pwd',
+  selector: 'app-compte',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
-    RouterModule
+    ReactiveFormsModule
   ],
-  templateUrl: './reset-pwd.component.html',
-  styleUrl: './reset-pwd.component.css'
+  templateUrl: './compte.component.html',
+  styleUrl: './compte.component.css'
 })
-export class ResetPwdComponent {
+export class CompteComponent {
   form!: FormGroup;
   submitted: boolean = false;
   error: string = "";
   commonService = inject(CommonService);
-  token: string | null;
+  storageService = inject(StorageService);
+
   success = "";
 
-  passwordErrorMessage = '';
-  confirmPasswordErrorMessage = '';
-  confirmPasswordMissingErrorMessage = '';
+  passwordErrorMessage = 'Un mot de passe est obligatoire.';
+  confirmPasswordErrorMessage = 'Les mots de passe ne correspondent pas.';
+  confirmPasswordMissingErrorMessage = 'La confirmation du mot de passe est obligatoire.';
   passwordFieldType: string = 'password';
   passwordFieldIcon = 'visibility_off';
   isPasswordConfirmed = false;
+  showDeleteConfirmModal = false;
 
   constructor(private router: Router, private fb: FormBuilder, private authService: AuthService) {
-    const url = new URL(window.location.href);
-    const urlParams = new URLSearchParams(url.searchParams);
-    this.token = urlParams.get('token') ? urlParams.get('token') : null;
   }
 
   ngOnInit(): void {
@@ -41,9 +40,7 @@ export class ResetPwdComponent {
       confirmPassword: ['']
     });
 
-    this.passwordErrorMessage = 'Un mot de passe est obligatoire.';
-    this.confirmPasswordMissingErrorMessage = 'La confirmation du mot de passe est obligatoire.';
-    this.confirmPasswordErrorMessage = 'Les mots de passe ne correspondent pas.';
+    this.commonService.setBlurBackground(false)
   }
 
   onSubmit(): void {
@@ -53,13 +50,9 @@ export class ResetPwdComponent {
       this.validatePasswordsMatch()
 
       if (this.isPasswordConfirmed){
-        this.authService.resetPassword(this.form.value.password, this.token).subscribe({
+        this.authService.updatePassword(this.form.value.password).subscribe({
           next: (data) => {
-            this.success = "Mot de passe modifié avec succès. Vous allez être redirigé vers la page de connection."
-            // this.emailSent = data.message
-            setTimeout(() => {
-              this.router.navigateByUrl('/login');
-            }, 3000);
+            this.success = "Mot de passe modifié avec succès."
           },
           error: (error) => {
             this.error = error.error.message;
@@ -92,6 +85,39 @@ export class ResetPwdComponent {
     if (passwordControl && confirmPasswordControl) {
       this.isPasswordConfirmed = passwordControl === confirmPasswordControl;
     }
-
   }
+
+  deleteAccount(): void {
+    this.success = "";
+    this.error = "";
+    this.authService.deleteAccount().subscribe({
+      next: (data) => {
+        this.success = "Compte supprimé avec succès."
+        this.closeDeleteConfirmModal()
+        setTimeout(() => {
+          this.router.navigateByUrl('');
+          this.authService.logout().subscribe(() => {
+            this.router.navigateByUrl('');
+            this.storageService.clean();
+            this.commonService.setIsLoggedIn(false);
+          });
+        }, 3000);
+      },
+      error: (error) => {
+        this.error = error.message;
+        console.error(error.message);
+      }
+    })
+  }
+
+  openDeleteConfirmModal(): void {
+    this.showDeleteConfirmModal = true;
+    this.commonService.toggleBlurBackground()
+  }
+
+  closeDeleteConfirmModal(): void {
+    this.showDeleteConfirmModal = false;
+    this.commonService.toggleBlurBackground()
+  }
+
 }
