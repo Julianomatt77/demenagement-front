@@ -4,6 +4,7 @@ import {CommonService} from '../../../services/common.service';
 import {AuthService} from '../../../services/auth.service';
 import {Router} from '@angular/router';
 import {StorageService} from '../../../services/storage.service';
+import {User} from '../../models/User';
 
 @Component({
   selector: 'app-compte',
@@ -16,10 +17,13 @@ import {StorageService} from '../../../services/storage.service';
 })
 export class CompteComponent {
   form!: FormGroup;
+  emailForm!: FormGroup;
   submitted: boolean = false;
+  submittedEmail: boolean = false;
   error: string = "";
   commonService = inject(CommonService);
   storageService = inject(StorageService);
+  user!: User;
 
   success = "";
 
@@ -35,6 +39,12 @@ export class CompteComponent {
   }
 
   ngOnInit(): void {
+    this.user = this.storageService.getUser();
+    
+    this.emailForm = this.fb.group({
+      email: [this.user.email, [Validators.required, Validators.email]]
+    });
+
     this.form = this.fb.group({
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['']
@@ -62,6 +72,26 @@ export class CompteComponent {
       } else {
         this.error = 'Les mots de passe ne correspondent pas';
       }
+
+    } else {
+      this.error = "Formulaire invalide";
+    }
+  }
+
+  onSubmitEmail(): void {
+    if (this.emailForm.valid) {
+      this.submittedEmail = true;
+      this.error = '';
+
+      this.authService.updateEmail(this.emailForm.value.email).subscribe({
+        next: (data) => {
+          this.success = "Email modifié avec succès."
+        },
+        error: (error) => {
+          this.error = error.error.message;
+          console.error(error);
+        }
+      })
 
     } else {
       this.error = "Formulaire invalide";

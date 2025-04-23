@@ -19,6 +19,7 @@ export class AuthService {
   private registerUrl = this.baseUrl + 'register';
   private userInfosUrl = this.baseUrl + 'users-infos';
   private deleteAccountUrl = this.baseUrl + 'user-delete';
+  private updateEmailUrl = this.baseUrl + 'user-email-update';
   private forgottenPwd = this.baseUrl + 'password/forgot';
   private updatePwd = this.baseUrl + 'password/update';
 
@@ -103,6 +104,12 @@ export class AuthService {
 
   deleteAccount(){
     return this.http.delete<any>(this.deleteAccountUrl);
+  }
+
+  updateEmail(email: string){
+    return this.http.patch<any>(this.updateEmailUrl, {
+      email
+    });
   }
 
 }
