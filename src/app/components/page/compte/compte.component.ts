@@ -40,7 +40,7 @@ export class CompteComponent {
 
   ngOnInit(): void {
     this.user = this.storageService.getUser();
-    
+
     this.emailForm = this.fb.group({
       email: [this.user.email, [Validators.required, Validators.email]]
     });

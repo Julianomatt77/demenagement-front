@@ -4,7 +4,8 @@
       @if (room.id === roomInEdit) {
         <app-room-form [room]="room" [isEdit]="true" (formSubmitted)="onRoomUpdated($event)" (formClosed)="closeEditForm()"/>
       } @else {
-        <p class="m-0">{{ room.name }}</p>
+        <p class="m-0">{{ room.name }} <br/> <span class="bg-secondary-600 dark:bg-secondary-400 text-text-100 dark:text-text-900 px-4 rounded-full">{{ room.cartons.length }} cartons</span></p>
+
         <span class="material-symbols-outlined cursor-pointer mr-8"
               title="Modifier le nom"
               (click)="toggleEditRoomForm(room)"

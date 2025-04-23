@@ -27,7 +27,7 @@ export class RoomFormComponent {
     this.formClosed = new EventEmitter<boolean>();
 
     if (!this.isEdit) {
-      this.room = new Room(0, "");
+      this.room = new Room(0, "", "", []);
     }
   }
 
