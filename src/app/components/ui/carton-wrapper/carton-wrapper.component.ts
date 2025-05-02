@@ -1,4 +1,4 @@
-import {Component, effect, EventEmitter, inject, Output} from '@angular/core';
+import {Component, effect, EventEmitter, inject, Input, Output} from '@angular/core';
 import {User} from '../../models/User';
 import {StorageService} from '../../../services/storage.service';
 import {CommonService} from '../../../services/common.service';
@@ -23,6 +23,7 @@ import {ElementFormComponent} from '../element-form/element-form.component';
 })
 export class CartonWrapperComponent {
   @Output() selectedCarton = new EventEmitter<Carton>();
+  @Input() displayEmptyBoxes: boolean = true;
 
   user!: User;
   isLoading = true;
@@ -75,16 +76,10 @@ export class CartonWrapperComponent {
 
   openDeleteConfirmModal(carton: Carton) {
     this.selectedCarton.emit(carton);
-    // if (this.isMobile){
-    //   this.commonService.toggleBlurBackground()
-    // }
   }
 
   toggleEditCartonForm(carton: Carton) {
     this.cartonInEdit = carton.id;
-    // if (this.isMobile){
-    //   this.commonService.toggleBlurBackground()
-    // }
   }
 
   onAdd(carton: Carton){

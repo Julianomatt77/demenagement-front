@@ -7,72 +7,74 @@
     }
   </div>
   @for (carton of cartons; track carton.id) {
-    <div class="relative flex flex-col items-start justify-start gap-4 flex-wrap bg-background-200 dark:bg-background-200 w-58 rounded-xl p-4">
-      @if (carton.id === cartonInEdit) {
-        <app-carton-form [carton]="carton" [isEdit]="true" (formSubmitted)="onUpdate($event)" (formClosed)="closeEditForm()"/>
-      } @else {
-        <div class="flex flex-wrap justify-start items-center gap-4 mt-6">
-          <p class="m-0 bg-secondary-600 dark:bg-secondary-400 text-text-100 dark:text-text-900 px-2 rounded-full">{{ carton.numero }}</p>
-          <p class="m-0">{{ carton.room?.name }}</p>
-          <span class="material-symbols-outlined cursor-pointer mr-8"
-                title="Modifier le nom"
-                (click)="toggleEditCartonForm(carton)"
-          >edit</span>
-        </div>
-
-        <div class="flex flex-wrap justify-start items-center gap-4">
-          <div class="inline-flex items-center gap-2">
-            <label for="filled-{{carton.id}}" class="text-sm" title="Le carton est-il fermé?">Ouvert</label>
-            <div class="relative inline-block w-11 h-5">
-              <input #filledInput
-                     [checked]="carton.filled"
-                     id="filled-{{carton.id}}"
-                     type="checkbox"
-                     class="peer appearance-none w-11 h-5 bg-slate-100 rounded-full checked:bg-primary-600 transition-colors duration-300 cursor-pointer"
-                     title="Le carton est-il fermé?"
-                     (click)="toggleCartonFilled(carton, filledInput)"/>
-              <label for="filled-{{carton.id}}" class="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800" title="Le carton est-il fermé?">
-              </label>
-            </div>
-            <label for="filled-{{carton.id}}" class="text-sm" title="Le carton est-il fermé?">Remplie</label>
+    @if (displayEmptyBoxes || (!displayEmptyBoxes && !carton.items_removed)) {
+      <div class="relative flex flex-col items-start justify-start gap-4 flex-wrap bg-background-200 dark:bg-background-200 w-58 rounded-xl p-4">
+        @if (carton.id === cartonInEdit) {
+          <app-carton-form [carton]="carton" [isEdit]="true" (formSubmitted)="onUpdate($event)" (formClosed)="closeEditForm()"/>
+        } @else {
+          <div class="flex flex-wrap justify-start items-center gap-4 mt-6">
+            <p class="m-0 bg-secondary-600 dark:bg-secondary-400 text-text-100 dark:text-text-900 px-2 rounded-full">{{ carton.numero }}</p>
+            <p class="m-0">{{ carton.room?.name }}</p>
+            <span class="material-symbols-outlined cursor-pointer mr-8"
+                  title="Modifier le nom"
+                  (click)="toggleEditCartonForm(carton)"
+            >edit</span>
           </div>
 
-          <div class="inline-flex items-center gap-2">
-            <div class="relative inline-block w-11 h-5">
-              <input #deballeInput
-                     [checked]="carton.items_removed"
-                     id="items_removed-{{carton.id}}"
-                     type="checkbox"
-                     class="peer appearance-none w-11 h-5 bg-slate-100 rounded-full checked:bg-primary-600 transition-colors duration-300 cursor-pointer"
-                     title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?"
-                     (click)="toggleCartonDeballe(carton, deballeInput)"/>
-              <label for="items_removed-{{carton.id}}" class="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?">
-              </label>
+          <div class="flex flex-wrap justify-start items-center gap-4">
+            <div class="inline-flex items-center gap-2">
+              <label for="filled-{{carton.id}}" class="text-sm" title="Le carton est-il fermé?">Ouvert</label>
+              <div class="relative inline-block w-11 h-5">
+                <input #filledInput
+                       [checked]="carton.filled"
+                       id="filled-{{carton.id}}"
+                       type="checkbox"
+                       class="peer appearance-none w-11 h-5 bg-slate-100 rounded-full checked:bg-primary-600 transition-colors duration-300 cursor-pointer"
+                       title="Le carton est-il fermé?"
+                       (click)="toggleCartonFilled(carton, filledInput)"/>
+                <label for="filled-{{carton.id}}" class="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800" title="Le carton est-il fermé?">
+                </label>
+              </div>
+              <label for="filled-{{carton.id}}" class="text-sm" title="Le carton est-il fermé?">Remplie</label>
             </div>
-            <label for="items_removed-{{carton.id}}" class="text-sm" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?">déballé</label>
+
+            <div class="inline-flex items-center gap-2">
+              <div class="relative inline-block w-11 h-5">
+                <input #deballeInput
+                       [checked]="carton.items_removed"
+                       id="items_removed-{{carton.id}}"
+                       type="checkbox"
+                       class="peer appearance-none w-11 h-5 bg-slate-100 rounded-full checked:bg-primary-600 transition-colors duration-300 cursor-pointer"
+                       title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?"
+                       (click)="toggleCartonDeballe(carton, deballeInput)"/>
+                <label for="items_removed-{{carton.id}}" class="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?">
+                </label>
+              </div>
+              <label for="items_removed-{{carton.id}}" class="text-sm" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?">déballé</label>
+            </div>
           </div>
-        </div>
 
-        <span class="material-symbols-outlined cursor-pointer absolute right-3 top-4 -translate-y-1/2 text-red-800 dark:text-red-500"
-              title="supprimer le carton"
-              (click)="openDeleteConfirmModal(carton)"
-        >remove_circle</span>
-      }
+          <span class="material-symbols-outlined cursor-pointer absolute right-3 top-4 -translate-y-1/2 text-red-800 dark:text-red-500"
+                title="supprimer le carton"
+                (click)="openDeleteConfirmModal(carton)"
+          >remove_circle</span>
+        }
 
-      @if (isNotEmpty(carton.elements)) {
-        <app-element-wrapper [carton]="carton" />
-      } @else {
-        <div class="flex flex-wrap justify-start items-center gap-4 mt-6">
-          <p class="mb-0">Carton vide</p>
-          @if (!showNewElementForm || addElementOnCarton !== carton.id) {
-            <div><span class="material-symbols-outlined cursor-pointer !text-4xl" title="ajouter un objet" (click)="toggleNewElementForm(carton)">add</span></div>
-          } @else if(addElementOnCarton === carton.id) {
-            <app-element-form [carton]="carton" (formSubmitted)="onAddElement($event, carton)"/>
-          }
-        </div>
+        @if (isNotEmpty(carton.elements)) {
+          <app-element-wrapper [carton]="carton" />
+        } @else {
+          <div class="flex flex-wrap justify-start items-center gap-4 mt-6">
+            <p class="mb-0">Carton vide</p>
+            @if (!showNewElementForm || addElementOnCarton !== carton.id) {
+              <div><span class="material-symbols-outlined cursor-pointer !text-4xl" title="ajouter un objet" (click)="toggleNewElementForm(carton)">add</span></div>
+            } @else if(addElementOnCarton === carton.id) {
+              <app-element-form [carton]="carton" (formSubmitted)="onAddElement($event, carton)"/>
+            }
+          </div>
 
-      }
-    </div>
+        }
+      </div>
+    }
   } @empty {
     <div><span>Vous n'avez aucune carton enregistré</span></div>
   }
