@@ -20,12 +20,12 @@ export class CartonService {
   }
 
   getAll(){
-    this.url = this.baseUrl + 'cartons';
+    let url = this.baseUrl + 'cartons';
     if (this.urlParamsString) {
-      this.url = this.baseUrl + 'cartons' + this.urlParamsString;
+      url = this.baseUrl + 'cartons' + this.urlParamsString;
     }
 
-    return this.http.get<Carton[]>(this.url);
+    return this.http.get<Carton[]>(url);
   }
 
   getOne(id: number){
