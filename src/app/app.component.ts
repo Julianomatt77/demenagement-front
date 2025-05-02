@@ -32,6 +32,7 @@ export class AppComponent{
   private resizeListener: any;
   contentClass = 'w-full xs:w-11/12 md:w-10/12';
   showScrollTop = false;
+  showScrollBottom = true;
 
   constructor(private themeService: ThemeService, private metaService: Meta, @Inject(DOCUMENT) private document: Document) {
     this.metaService.addTags([
@@ -146,10 +147,28 @@ export class AppComponent{
   @HostListener('window:scroll', [])
   onScroll(): void {
     this.showScrollTop = window.scrollY > 200;
+
+    const scrollBottom = window.innerHeight + window.scrollY;
+    const pageHeight = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.offsetHeight,
+      document.body.clientHeight,
+      document.documentElement.clientHeight
+    );
+    this.showScrollBottom = scrollBottom < pageHeight - 50;
   }
 
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  scrollToBottom(): void {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth',
+    });
   }
 
 }
