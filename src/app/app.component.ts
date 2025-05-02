@@ -32,7 +32,7 @@ export class AppComponent{
   private resizeListener: any;
   contentClass = 'w-full xs:w-11/12 md:w-10/12';
   showScrollTop = false;
-  showScrollBottom = true;
+  showScrollBottom = false;
 
   constructor(private themeService: ThemeService, private metaService: Meta, @Inject(DOCUMENT) private document: Document) {
     this.metaService.addTags([
