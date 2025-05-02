@@ -43,6 +43,8 @@ export class CartonsComponent {
 
   urlParamsString = "";
 
+  displayEmptyBoxes: boolean = true;
+
   constructor(private router: Router) {
     effect(() => {
       this.rooms = this.commonService.rooms();
@@ -136,5 +138,9 @@ export class CartonsComponent {
     this.cartonToDelete = null;
     this.commonService.toggleBlurBackground()
     this.showDeleteCartonConfirmModal = false;
+  }
+
+  toggleDisplayEmptyBoxes(){
+    this.displayEmptyBoxes = !this.displayEmptyBoxes;
   }
 }
