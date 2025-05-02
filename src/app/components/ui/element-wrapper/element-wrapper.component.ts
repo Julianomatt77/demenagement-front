@@ -69,6 +69,7 @@ export class ElementWrapperComponent {
       this.commonService.setCartons(CARTONS);
     }
 
+    this.getAllCartons();
     this.toggleNewForm();
   }
 
@@ -88,6 +89,7 @@ export class ElementWrapperComponent {
 
       this.commonService.setCartons(CARTONS);
     }
+    this.getAllCartons();
   }
 
   deleteElement(element: Element, carton: Carton) {
