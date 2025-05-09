@@ -32,7 +32,7 @@ export class CartonsComponent {
   rooms: Array<Room> = [];
   formRoomFiltered!: FormGroup;
   selectedRoom: Room | null = null;
-  displayRooms: boolean = true;
+  displayRooms: boolean = false;
   roomToDelete: Room | null = null;
   showDeleteRoomConfirmModal = false;
 
@@ -48,7 +48,6 @@ export class CartonsComponent {
   constructor(private router: Router) {
     effect(() => {
       this.rooms = this.commonService.rooms();
-      // this.cartons = this.commonService.cartons();
     });
 
     effect(() => {

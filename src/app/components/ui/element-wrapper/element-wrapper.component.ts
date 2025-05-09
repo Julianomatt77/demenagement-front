@@ -59,15 +59,15 @@ export class ElementWrapperComponent {
   }
 
   onAdd(element: Element, carton: Carton){
-    const CARTONS = this.commonService.cartons()
-    const targetCarton = CARTONS.find(c => c.id === carton.id);
+    // const CARTONS = this.commonService.cartons()
+    // const targetCarton = CARTONS.find(c => c.id === carton.id);
 
-    if (targetCarton) {
-      const lastIndex = Object.keys(targetCarton.elements).length;
-      targetCarton.elements[lastIndex +1] = element;
-
-      this.commonService.setCartons(CARTONS);
-    }
+    // if (targetCarton) {
+    //   const lastIndex = Object.keys(targetCarton.elements).length;
+    //   targetCarton.elements[lastIndex +1] = element;
+    //
+    //   this.commonService.setCartons(CARTONS);
+    // }
 
     this.getAllCartons();
     this.toggleNewForm();
@@ -75,20 +75,20 @@ export class ElementWrapperComponent {
 
   onUpdate(element: Element, carton: Carton){
     this.elementInEdit = null;
-    const CARTONS = this.commonService.cartons()
-    const targetCarton = CARTONS.find(c => c.id === carton.id);
+    // const CARTONS = this.commonService.cartons()
+    // const targetCarton = CARTONS.find(c => c.id === carton.id);
 
-    if (targetCarton) {
-      const entryKey = Object.keys(targetCarton.elements).find(
-        key => targetCarton.elements[+key].id === element.id
-      );
-
-      if (entryKey) {
-        targetCarton.elements[+entryKey] = element;
-      }
-
-      this.commonService.setCartons(CARTONS);
-    }
+    // if (targetCarton) {
+    //   const entryKey = Object.keys(targetCarton.elements).find(
+    //     key => targetCarton.elements[+key].id === element.id
+    //   );
+    //
+    //   if (entryKey) {
+    //     targetCarton.elements[+entryKey] = element;
+    //   }
+    //
+    //   this.commonService.setCartons(CARTONS);
+    // }
     this.getAllCartons();
   }
 
