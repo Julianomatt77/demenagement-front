@@ -83,8 +83,9 @@ export class CartonWrapperComponent {
   }
 
   onAdd(carton: Carton){
-    this.cartons.push(carton);
-    this.commonService.setCartons(this.cartons);
+    this.getAllCartons();
+    // this.cartons.push(carton);
+    // this.commonService.setCartons(this.cartons);
     this.toggleNewForm();
   }
 
