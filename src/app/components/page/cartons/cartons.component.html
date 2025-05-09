@@ -5,20 +5,21 @@
 
   <app-search-section class="w-full flex flex-col items-center justify-center" />
 
+  <div id="boxes_list" class="flex flex-col flex-wrap justify-center items-start gap-5 w-full px-4 pb-4 rounded-2xl">
+    <div class="w-full flex justify-start items-center gap-6">
+      <h2 class="pb-0">Liste des cartons (regroupés par pièce)</h2>
+      <span class="material-symbols-outlined cursor-pointer !text-4xl" title="Afficher/masquer les pièces enregistrées" (click)="toggleDisplayEmptyBoxes()">{{ displayEmptyBoxes ? "visibility" : "visibility_off" }}</span>
+    </div>
+    <div class="pt-0 mt-0"> Nombre de cartons: {{ cartons.length }}</div>
+    <app-carton-wrapper (selectedCarton)="openDeleteCartonConfirmModal($event)" [displayEmptyBoxes]="displayEmptyBoxes"/>
+  </div>
+
   <div id="rooms_list" class="flex flex-col flex-wrap justify-center items-center gap-5 w-full px-4 pb-4 rounded-2xl" >
     <div class="w-full flex justify-start items-center gap-6">
       <h2 class="">Pièces enregistrées</h2>
       <span class="material-symbols-outlined cursor-pointer !text-4xl" title="Afficher/masquer les pièces enregistrées" (click)="toggleDisplayRooms()">{{displayRooms ? "visibility" : "visibility_off" }}</span>
     </div>
     <app-room (selectedRoom)="openDeleteRoomConfirmModal($event)" [class.hidden]="!displayRooms"/>
-  </div>
-
-  <div id="boxes_list" class="flex flex-col flex-wrap justify-center items-center gap-5 w-full px-4 pb-4 rounded-2xl">
-    <div class="w-full flex justify-start items-center gap-6">
-      <h2 class="">Liste des cartons (regroupés par pièce)</h2>
-      <span class="material-symbols-outlined cursor-pointer !text-4xl" title="Afficher/masquer les pièces enregistrées" (click)="toggleDisplayEmptyBoxes()">{{ displayEmptyBoxes ? "visibility" : "visibility_off" }}</span>
-    </div>
-    <app-carton-wrapper (selectedCarton)="openDeleteCartonConfirmModal($event)" [displayEmptyBoxes]="displayEmptyBoxes"/>
   </div>
 </div>
 

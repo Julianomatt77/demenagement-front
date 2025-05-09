@@ -23,7 +23,7 @@
 
           <div class="flex flex-wrap justify-start items-center gap-4">
             <div class="inline-flex items-center gap-2">
-              <label for="filled-{{carton.id}}" class="text-sm" title="Le carton est-il fermé?">Ouvert</label>
+              <label for="filled-{{carton.id}}" class="text-sm" title="Le carton est-il fermé?">{{ carton.filled ? "Plein" : "Ouvert"}}</label>
               <div class="relative inline-block w-11 h-5">
                 <input #filledInput
                        [checked]="carton.filled"
@@ -35,10 +35,10 @@
                 <label for="filled-{{carton.id}}" class="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800" title="Le carton est-il fermé?">
                 </label>
               </div>
-              <label for="filled-{{carton.id}}" class="text-sm" title="Le carton est-il fermé?">Remplie</label>
             </div>
 
             <div class="inline-flex items-center gap-2">
+            <label for="items_removed-{{carton.id}}" class="text-sm" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?">{{ carton.items_removed ? "Déballé" : "Emballé"}}</label>
               <div class="relative inline-block w-11 h-5">
                 <input #deballeInput
                        [checked]="carton.items_removed"
@@ -50,8 +50,8 @@
                 <label for="items_removed-{{carton.id}}" class="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?">
                 </label>
               </div>
-              <label for="items_removed-{{carton.id}}" class="text-sm" title="Le carton a t-il été déballé ou est-il encore fermé avec du scotch?">déballé</label>
             </div>
+
           </div>
 
           <span class="material-symbols-outlined cursor-pointer absolute right-3 top-4 -translate-y-1/2 text-red-800 dark:text-red-500"
