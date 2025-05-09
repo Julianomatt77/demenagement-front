@@ -72,8 +72,8 @@ export class CartonFormComponent {
           this.formSubmitted.emit(carton);
         },
         error => {
-          this.error = JSON.stringify(error.error);
-          console.log(error.error);
+          this.error = JSON.stringify(error.error.error);
+          console.log(error.error.error);
         });
       }
     } else {
