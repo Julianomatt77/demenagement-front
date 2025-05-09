@@ -9,8 +9,9 @@ import {environment} from "../environments/environment";
 const TOKEN_KEY = environment.token_name;
 
 export function AuthInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
-  const user = getCookie(TOKEN_KEY);
-  const idToken = getCookie(environment.token_name);
+  // const user = getCookie(TOKEN_KEY);
+  // const idToken = getCookie(environment.token_name);
+  const idToken = window.sessionStorage.getItem(TOKEN_KEY);
 
   if (idToken) {
     const cloned = req.clone({
