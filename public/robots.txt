@@ -1,0 +1,27 @@
+ robots.txt pour https://mondemenagement.martin-julien-dev.fr/
+User-agent: *
+Allow: /
+
+# Ne pas indexer les pages d'administration ou privées
+Disallow: /admin/
+Disallow: /compte/
+Disallow: /login/
+Disallow: /dashboard/
+Disallow: /profil/
+Disallow: /mes-devis/
+Disallow: /mes-commandes/
+
+# Ne pas indexer les URL avec paramètres de session ou de tracking
+Disallow: /*?token=
+Disallow: /*&token=
+Disallow: /*?session=
+Disallow: /*&session=
+
+# Ne pas indexer les fichiers temporaires ou de développement
+Disallow: /*.json$
+Disallow: /*.map$
+Disallow: /*.env$
+Disallow: /*.htaccess$
+
+# Indiquer l'emplacement du sitemap
+Sitemap: https://mondemenagement.martin-julien-dev.fr/sitemap.xml
