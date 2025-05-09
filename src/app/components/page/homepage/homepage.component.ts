@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, effect, inject} from '@angular/core';
 import {StorageService} from '../../../services/storage.service';
 import {environment} from '../../../../environments/environment';
 import {RouterModule} from "@angular/router";
+import {CommonService} from '../../../services/common.service';
 
 const HAS_RELOADED = environment.has_reloaded;
 
@@ -15,10 +16,14 @@ const HAS_RELOADED = environment.has_reloaded;
   styleUrl: './homepage.component.css'
 })
 export class HomepageComponent {
-  isLoggedIn: boolean;
+  isLoggedIn: boolean = false;
+  commonService = inject(CommonService);
+  storageService = inject(StorageService);
 
-  constructor(private storageService: StorageService) {
-    this.isLoggedIn = this.storageService.isLoggedIn();
+  constructor() {
+    effect(() => {
+      this.isLoggedIn = this.commonService.isLoggedIn();
+    });
   }
 
   ngOnInit(): void {
@@ -28,8 +33,6 @@ export class HomepageComponent {
       window.location.reload();
     }
 
-    if (this.storageService.isLoggedIn()) {
-      this.isLoggedIn = true;
-    }
+    this.isLoggedIn = this.commonService.isLoggedIn();
   }
 }
