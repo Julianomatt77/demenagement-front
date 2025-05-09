@@ -32,26 +32,53 @@
         Quels services proposons nous ?
       </h2>
       <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="text-center p-6 bg-primary dark:bg-secondary-200 shadow rounded-lg">
-          <h3 class="text-xl font-semibold text-text-100 dark:text-text">Cartons</h3>
-          <p class="mt-2 text-text-100 dark:text-text-800">
+        @if (isLoggedIn){
+          <div [routerLink]="['/cartons']" title="Aller à vos cartons"  class="text-center p-6 bg-primary dark:bg-secondary-200 shadow rounded-lg cursor-pointer">
+            <h3 class="text-xl font-semibold text-text-100 dark:text-text">Cartons</h3>
+            <p class="mt-2 text-text-100 dark:text-text-800">
             Une interface intuitive pour organiser vos cartons et gagner du temps le jour du déménagement.
-          </p>
-        </div>
-        <div class="text-center p-6 bg-primary dark:bg-secondary-200 shadow rounded-lg">
-          <h3 class="text-xl font-semibold text-text-100 dark:text-text">
-            Déménagement
-          </h3>
-          <p class="mt-2 text-text-100 dark:text-text-800">
-            Renseignez les informations du déménageur en cas de besoin le jour J et comparer les devis.
-          </p>
-        </div>
-        <div class="text-center p-6 bg-primary dark:bg-secondary-200 shadow rounded-lg">
-          <h3 class="text-xl font-semibold text-text-100 dark:text-text">Administratif</h3>
-          <p class="mt-2 text-text-100 dark:text-text-800">
-            Listez et mettez à jour les démarches administratives que vous devrez effectuer après le déménagement.
-          </p>
-        </div>
+            </p>
+          </div>
+
+          <div [routerLink]="['/demenageurs']" title="Aller à vos déménageurs" class="text-center p-6 bg-primary dark:bg-secondary-200 shadow rounded-lg cursor-pointer">
+            <h3 class="text-xl font-semibold text-text-100 dark:text-text">
+              Déménagement
+            </h3>
+            <p class="mt-2 text-text-100 dark:text-text-800">
+              Renseignez les informations du déménageur en cas de besoin le jour J et comparer les devis.
+            </p>
+          </div>
+
+          <div [routerLink]="['/administratif']" title="Aller à l'administratif" class="text-center p-6 bg-primary dark:bg-secondary-200 shadow rounded-lg cursor-pointer">
+            <h3 class="text-xl font-semibold text-text-100 dark:text-text">Administratif</h3>
+            <p class="mt-2 text-text-100 dark:text-text-800">
+              Listez et mettez à jour les démarches administratives que vous devrez effectuer après le déménagement.
+            </p>
+          </div>
+        } @else {
+          <div class="text-center p-6 bg-primary dark:bg-secondary-200 shadow rounded-lg">
+            <h3 class="text-xl font-semibold text-text-100 dark:text-text">Cartons</h3>
+            <p class="mt-2 text-text-100 dark:text-text-800">
+            Une interface intuitive pour organiser vos cartons et gagner du temps le jour du déménagement.
+            </p>
+          </div>
+
+          <div class="text-center p-6 bg-primary dark:bg-secondary-200 shadow rounded-lg">
+            <h3 class="text-xl font-semibold text-text-100 dark:text-text">
+              Déménagement
+            </h3>
+            <p class="mt-2 text-text-100 dark:text-text-800">
+              Renseignez les informations du déménageur en cas de besoin le jour J et comparer les devis.
+            </p>
+          </div>
+
+          <div class="text-center p-6 bg-primary dark:bg-secondary-200 shadow rounded-lg">
+            <h3 class="text-xl font-semibold text-text-100 dark:text-text">Administratif</h3>
+            <p class="mt-2 text-text-100 dark:text-text-800">
+              Listez et mettez à jour les démarches administratives que vous devrez effectuer après le déménagement.
+            </p>
+          </div>
+        }
       </div>
     </div>
   </div>
