@@ -3,9 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  baseUrl: 'http://127.0.0.1:8000/api/',
-  base: 'http://127.0.0.1:8000/',
+  production: true,
+  baseUrl: 'https://apitest-mondemenagement.martin-julien-dev.fr/api/',
+  base: 'https://apitest-mondemenagement.martin-julien-dev.fr/',
   user_key: 'moving_user',
   token_name: 'moving_token',
   has_reloaded: 'moving_reloaded'

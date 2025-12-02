@@ -3,7 +3,6 @@ import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 import {AuthService} from '../../../services/auth.service';
 import {StorageService} from '../../../services/storage.service';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {CommonModule} from '@angular/common';
 import {environment} from '../../../../environments/environment';
 
 const HAS_RELOADED = environment.has_reloaded;
@@ -13,9 +12,8 @@ const HAS_RELOADED = environment.has_reloaded;
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    CommonModule,
     RouterModule
-  ],
+],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.css',
   providers: [AuthService]

@@ -1,8 +1,7 @@
-import {Component, HostListener, Inject, OnInit} from '@angular/core';
+import {Component, HostListener, Inject, DOCUMENT} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {ThemeService} from './services/theme.service';
 import {Meta} from '@angular/platform-browser';
-import {DOCUMENT} from '@angular/common';
 import {SidebarComponent} from './components/ui/sidebar/sidebar.component';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
